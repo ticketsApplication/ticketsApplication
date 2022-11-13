@@ -1,4 +1,4 @@
-package org.stepProjectBooking.bookingDAO;
+package org.stepProjectBooking.ticketsApplication.DAO.bookingDAO;
 
 public class BookingController {
 }
