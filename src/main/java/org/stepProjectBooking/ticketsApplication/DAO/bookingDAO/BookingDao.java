@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface BookingDao {
 
-    /**Возвращает соллекцию со всеми бронями */
+    /**Возвращает коллекцию со всеми бронями */
     List<Booking> getAllBookings();
 
     /**Возвращает бронь по id*/
