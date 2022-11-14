@@ -10,6 +10,7 @@ public class BookingService implements BookingDao {
 
     private final CollectionBookingDao collectionBookingDao = new CollectionBookingDao();
 
+
     public List<Booking> getAllBookings() {
         return new ArrayList<>(collectionBookingDao.getBookingList());
     }
