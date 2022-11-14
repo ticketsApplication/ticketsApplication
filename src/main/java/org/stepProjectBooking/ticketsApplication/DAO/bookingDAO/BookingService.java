@@ -17,7 +17,7 @@ public class BookingService implements BookingDao {
     public Booking getBookingById(UUID id) {
         List<Booking> bookingList = collectionBookingDao.getBookingList();
         for (int i = 0; i < bookingList.size(); i++) {
-            if (bookingList.get(i).getIdBooking == id) {  //когда будет bookingId
+            if (bookingList.get(i).getIdBooking() == id) {  //когда будет bookingId
                 return bookingList.get(i);
             }
         }
@@ -28,7 +28,7 @@ public class BookingService implements BookingDao {
     public void saveBooking(Booking booking) {
         List<Booking> bookingList = collectionBookingDao.getBookingList();
         for (int i = 0; i < bookingList.size(); i++) {
-            if (bookingList.get(i).getIdBooking == booking.getIdBooking) {  //когда будет bookingId
+            if (bookingList.get(i).getIdBooking() == booking.getIdBooking()) {  //когда будет bookingId
                 bookingList.set(i, booking);
                 return;
             }
@@ -39,7 +39,7 @@ public class BookingService implements BookingDao {
     public void deleteBookingById(UUID id) {
         List<Booking> bookingList = collectionBookingDao.getBookingList();
         for (int i = 0; i < bookingList.size(); i++) {
-            if (bookingList.get(i).getIdBooking == booking.getIdBooking) {  //когда будет bookingId
+            if (bookingList.get(i).getIdBooking() == id) {  //когда будет bookingId
                 bookingList.remove(i);
                 collectionBookingDao.setBookingList(bookingList);
                 return;
