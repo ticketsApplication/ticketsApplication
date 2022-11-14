@@ -47,6 +47,5 @@ public class BookingService implements BookingDao {
         }
         System.out.println("id not found");
     }
-
-    public Booking createBooking()
 }
+
