@@ -1,9 +1,10 @@
 package org.stepProjectBooking.ticketsApplication.DAO.tripDAO;
 
 
+import org.stepProjectBooking.ticketsApplication.trips.Destinations;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TripController {
 
@@ -13,11 +14,20 @@ public class TripController {
         this.tripService = new TripService();
     }
 
-    public ArrayList<Trip> getTrips() {
-        return tripService.getTrip();
+    public List<Trip> getAllFamilies() {
+        return tripService.getAllTrips();
     }
 
-    public void addTrip(Trip trip) {
-        tripService.addTrip(trip);
+    public List<String> displayAllTrips() {
+        return tripService.displayAllTrips();
     }
+
+    public List<String> getTripsById(String id) {
+        return tripService.getTripsById(id);
+    }
+
+    public List<String> getTripsByDestinationNumPassenger(Destinations destinations, long date, int numPassenger) {
+        return tripService.getTripsByDestinationNumPassenger(destinations, numPassenger);
+    }
+
 }
