@@ -1,17 +1,19 @@
 package org.stepProjectBooking.ticketsApplication.trips;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TripBooking {
+public class TripBooking implements Serializable {
 
     private Trip trip;
     private List<Booking> bookingList;
     private int freePlace;
     private boolean isActive;
-    private long date;
-    public TripBooking(Trip trip, int freePlace, long date) {
+    private LocalDateTime date;
+    public TripBooking(Trip trip, int freePlace, LocalDateTime date) {
         this.trip = trip;
         this.freePlace = freePlace;
         this.date = date; // should be defined by other method or before creation
@@ -41,11 +43,11 @@ public class TripBooking {
         isActive = active;
     }
 
-    public long getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

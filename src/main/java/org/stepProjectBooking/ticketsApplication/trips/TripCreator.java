@@ -1,8 +1,10 @@
 package org.stepProjectBooking.ticketsApplication.trips;
 
+import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
+
 
 public class TripCreator {
 
@@ -33,12 +35,11 @@ public class TripCreator {
        return Departures.KYIV;
    }
 
-    private String createTripId (Departures Departure, Destinations Destination, int idNumeric){
-        String idDestination = Destination.toString().charAt(0) + "";
-        String idDeparture = Departure.toString().charAt(0) + "";
-        return String.format("%s%s%03d",idDeparture,idDestination,idNumeric);
+    private String createTripId (int idNumeric){
+
+        return String.format("%3s%03d",Trip.SHORT_NAME_COMPANY,idNumeric);
     }
-    private String createTimeDeparture () {
+    private LocalTime createTimeDeparture () {
            boolean isContinue = true;
            int hour;
            int minute = 0;
@@ -49,13 +50,13 @@ public class TripCreator {
                }
            }
            hour = random.nextInt(24);
-           return String.format("%02d:%02d", hour,minute);
+           return LocalTime.of(hour,minute);
     }
     public Trip createTrip () {
            Destinations Destination;
            Departures Departure;
            String tripId;
-           String timeDeparture;
+           LocalTime timeDeparture;
            int capacity = 100;
            int idNumeric;
            idNumeric = listIdTrip.get(idTripCounter);
@@ -64,7 +65,7 @@ public class TripCreator {
            Destination = createDestination();
            Departure = createDeparture();
 
-           tripId  = createTripId(Departure,Destination,idNumeric);
+           tripId  = createTripId(idNumeric);
            return new Trip(tripId, timeDeparture, Departure, Destination, capacity);
     }
 
