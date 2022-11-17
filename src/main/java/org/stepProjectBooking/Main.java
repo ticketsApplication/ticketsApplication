@@ -1,9 +1,12 @@
 package org.stepProjectBooking;
 
-import org.stepProjectBooking.ticketsApplication.trips.Departures;
-import org.stepProjectBooking.ticketsApplication.trips.Trip;
-import org.stepProjectBooking.ticketsApplication.trips.TripCreator;
+import org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingService;
+import org.stepProjectBooking.ticketsApplication.trips.*;
+import org.stepProjectBooking.ticketsApplication.user.Passenger;
+import org.stepProjectBooking.ticketsApplication.user.Purchaser;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,5 +19,8 @@ public class Main {
             System.out.println(trip.prettyFormat());
         }
 
+        BookingService bookingService = new BookingService();
+        System.out.println(bookingService.getAvailableTrips(Destinations.PARIS,2));
+        System.out.println(bookingService.getBookingByNameSurName("Bill","Smith"));
     }
 }

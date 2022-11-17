@@ -65,4 +65,15 @@ public class Booking implements Serializable {
     public List<Passenger> getPassengerList() {
         return passengerList;
     }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "\nidBooking=" + idBooking +
+                ", \npurchaser=" + purchaser +
+                ", \ntrip=" + trip +
+                ", \nreserveNum=" + reserveNum +
+                ", \npassengerList=" + passengerList +
+                '}';
+    }
 }
