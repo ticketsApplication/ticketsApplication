@@ -22,10 +22,20 @@ public class Main {
 
         System.out.println("--------------getAvailableTrips");
         System.out.println(bookingService.getAvailableTrips(Destinations.PARIS,
-                LocalDate.of(2022,11,18),7));
+                LocalDate.of(2022,11,18),8));
         System.out.println(bookingService.getAvailableTrips(Destinations.WASHINGTON,
                 LocalDate.of(2022,11,18),15));
+
+        System.out.println("--------------getBookingById");
+        System.out.println(bookingService.getBookingById(123456));
+        bookingService.deleteBookingById(123456);
+        System.out.println();
         System.out.println("--------------getBookingByNameSurname");
-//        System.out.println(bookingService.getBookingByNameSurname("Bill","Smith"));
+        System.out.println(bookingService.getBookingByNameSurname("Bill","Smith"));
+
+        System.out.println();
+        System.out.println();
+
+        System.out.println(bookingService.getBookingByNameSurname("Stan","Second"));
     }
 }

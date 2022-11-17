@@ -18,6 +18,19 @@ public class Booking implements Serializable {
     private int reserveNum;
     private List<Passenger> passengerList;
 
+    public Booking(int idBooking, Purchaser purchaser, Trip trip, int reserveNum, List<Passenger> passengerList) {
+
+        this.idBooking = idBooking;
+
+        this.purchaser = purchaser;
+        this.trip = trip;
+        this.reserveNum = reserveNum; //за что он отвечает?
+        this.passengerList = passengerList;
+    }
+
+    /**
+     * метод для теста
+     */
     public Booking(Purchaser purchaser, Trip trip, int reserveNum, List<Passenger> passengerList) {
 
         this.idBooking = generateUniqueId();
@@ -29,14 +42,17 @@ public class Booking implements Serializable {
     }
 
 
-    public Booking () {};
+    public Booking() {
+    }
+
+    ;
 
     private int generateUniqueId() {
         UUID idOne = UUID.randomUUID();
-        String str=""+idOne;
-        int uid=str.hashCode();
-        String filterStr=""+uid;
-        str=filterStr.replaceAll("-", "");
+        String str = "" + idOne;
+        int uid = str.hashCode();
+        String filterStr = "" + uid;
+        str = filterStr.replaceAll("-", "");
         return Integer.parseInt(str);
     }
 

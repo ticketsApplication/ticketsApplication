@@ -68,9 +68,9 @@ public class DataBase {
         Purchaser stanSecond = new Purchaser("Stan", "Second");
         Trip KP475 = new Trip("KP475", LocalTime.of(10, 05, 00), Departures.KYIV, Destinations.PARIS, 20);
 
-        bookingList.add(new Booking(billSmith, KP475, 124523, createPassengerList1()));
-        bookingList.add(new Booking(stanSecond, KP475, 124527, createPassengerList2()));
-        bookingList.add(new Booking(stanSecond, KP475, 124532, createPassengerList3()));
+        bookingList.add(new Booking(123456,billSmith, KP475, 124523, createPassengerList1()));
+        bookingList.add(new Booking(123457,stanSecond, KP475, 124527, createPassengerList2()));
+        bookingList.add(new Booking(132458,stanSecond, KP475, 124532, createPassengerList3()));
         return bookingList;
     }
 
@@ -82,9 +82,9 @@ public class DataBase {
         Purchaser stanSecond = new Purchaser("Stan", "Second");
         Trip KC579 = new Trip("KC579", LocalTime.of(21, 30, 00), Departures.KYIV, Destinations.COLOGNE, 10);
 
-        bookingList.add(new Booking(billSmith, KC579, 124557, createPassengerList1()));
-        bookingList.add(new Booking(stanSecond, KC579, 124589, createPassengerList2()));
-        bookingList.add(new Booking(stanSecond, KC579, 124593, createPassengerList3()));
+        bookingList.add(new Booking(123459,billSmith, KC579, 124557, createPassengerList1()));
+        bookingList.add(new Booking(123460,stanSecond, KC579, 124589, createPassengerList2()));
+        bookingList.add(new Booking(123461,stanSecond, KC579, 124593, createPassengerList3()));
         return bookingList;
     }
 
@@ -96,9 +96,9 @@ public class DataBase {
         Purchaser stanSecond = new Purchaser("Stan", "Second");
         Trip KP931 = new Trip("KP931", LocalTime.of(0, 40, 00), Departures.KYIV, Destinations.PARIS, 25);
 
-        bookingList.add(new Booking(billSmith, KP931, 124612, createPassengerList1()));
-        bookingList.add(new Booking(stanSecond, KP931, 124655, createPassengerList2()));
-        bookingList.add(new Booking(stanSecond, KP931, 124689, createPassengerList3()));
+        bookingList.add(new Booking(123462,billSmith, KP931, 124612, createPassengerList1()));
+        bookingList.add(new Booking(123463,stanSecond, KP931, 124655, createPassengerList2()));
+        bookingList.add(new Booking(123464,stanSecond, KP931, 124689, createPassengerList3()));
         return bookingList;
     }
 
@@ -144,7 +144,7 @@ public class DataBase {
         passengerList.add(new Passenger("Tom", "Smith", KC579, 124527));
         passengerList.add(new Passenger("Nina", "Smith", KC579, 124527));
         passengerList.add(new Passenger("Liza", "Trust", KC579, 124527));
-        passengerList.add(new Passenger("Indy", "Chart", KC579, 124527));
+        passengerList.add(new Passenger("Stan", "Second", KC579, 124527));
         return passengerList;
     }
 
