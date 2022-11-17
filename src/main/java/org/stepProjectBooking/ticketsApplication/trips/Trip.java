@@ -14,11 +14,13 @@ public class Trip implements Serializable {
     private Destinations destination;
     private int capacity;
 
+
     @Override
     public String toString() {
         return "Trip{" +
                 "tripId='" + tripId + '\'' +
                 ", timeTrip=" + timeTrip +
+
                 ", departure=" + departure +
                 ", destination=" + destination +
                 ", capacity=" + capacity +
@@ -43,6 +45,7 @@ public class Trip implements Serializable {
     }
 
     public Trip(String tripId, LocalTime timeTrip, Departures departure, Destinations destination, int capacity) {
+
         this.tripId = tripId;
         this.timeTrip = timeTrip;
         this.departure = departure;
@@ -57,6 +60,7 @@ public class Trip implements Serializable {
     }
 
     public void setTimeTrip(LocalTime timeTrip) {
+
         this.timeTrip = timeTrip;
     }
 

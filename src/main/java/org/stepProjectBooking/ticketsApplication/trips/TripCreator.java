@@ -1,10 +1,10 @@
 package org.stepProjectBooking.ticketsApplication.trips;
 
 import java.time.LocalTime;
+
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
-
 
 public class TripCreator {
 
@@ -35,11 +35,13 @@ public class TripCreator {
        return Departures.KYIV;
    }
 
+
     private String createTripId (int idNumeric){
 
         return String.format("%3s%03d",Trip.SHORT_NAME_COMPANY,idNumeric);
     }
     private LocalTime createTimeDeparture () {
+
            boolean isContinue = true;
            int hour;
            int minute = 0;
@@ -50,13 +52,17 @@ public class TripCreator {
                }
            }
            hour = random.nextInt(24);
+
            return LocalTime.of(hour,minute);
+
     }
     public Trip createTrip () {
            Destinations Destination;
            Departures Departure;
            String tripId;
+
            LocalTime timeDeparture;
+
            int capacity = 100;
            int idNumeric;
            idNumeric = listIdTrip.get(idTripCounter);
@@ -66,6 +72,7 @@ public class TripCreator {
            Departure = createDeparture();
 
            tripId  = createTripId(idNumeric);
+
            return new Trip(tripId, timeDeparture, Departure, Destination, capacity);
     }
 
