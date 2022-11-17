@@ -1,19 +1,23 @@
 package org.stepProjectBooking.ticketsApplication.DAO.bookingDAO;
 
+import org.stepProjectBooking.ticketsApplication.DAO.DataBase;
 import org.stepProjectBooking.ticketsApplication.trips.Booking;
+import org.stepProjectBooking.ticketsApplication.trips.Trip;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionBookingDao {
-
-    private List<Booking> bookingList=new ArrayList<>(); //BookingDatabase
+    DataBase dataBase = new DataBase();
 
     public List<Booking> getBookingList() {
-        return bookingList;
+        return dataBase.getBookingList();
     }
 
     public void setBookingList(List<Booking> bookingList) {
-        this.bookingList = bookingList;
+        dataBase.setBookingList(bookingList);
+    }
+
+    public  List<Trip> getTripList(){
+        return dataBase.getTripList();
     }
 }
