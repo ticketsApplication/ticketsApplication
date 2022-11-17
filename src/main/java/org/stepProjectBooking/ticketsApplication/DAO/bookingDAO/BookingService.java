@@ -28,7 +28,7 @@ public class BookingService implements BookingDao {
         System.out.println("id not found");
         return null;
     }
-    public List<Booking> getBookingByNameSurname(String name, String surname){
+    public List<Booking> getBookingByNameSurName(String name, String surname){
         List<Booking> bookingList = collectionBookingDao.getBookingList();
         List<Booking> list=new ArrayList<>();
 
