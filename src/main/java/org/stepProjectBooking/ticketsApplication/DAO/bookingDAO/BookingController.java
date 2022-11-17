@@ -10,9 +10,9 @@ import java.util.List;
 public class BookingController {
     BookingService bookingService = new BookingService();
 
-    public List<Trip> getAvailableTrips(Destinations destination, /*LocalDateTime date,*/ int passengersNum){
-        return bookingService.getAvailableTrips(destination,passengersNum);
-    }
+//    public List<Trip> getAvailableTrips(Destinations destination, /*LocalDateTime date,*/ int passengersNum){
+//        return bookingService.getAvailableTrips(destination,passengersNum);
+//    }
 
 
 }

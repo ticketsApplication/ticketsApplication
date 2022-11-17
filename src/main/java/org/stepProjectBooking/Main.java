@@ -3,6 +3,9 @@ package org.stepProjectBooking;
 import org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingService;
 import org.stepProjectBooking.ticketsApplication.trips.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -13,12 +16,16 @@ public class Main {
             trip =tripCreator.createTrip();
             System.out.println(trip.prettyFormat());
         }
-
         BookingService bookingService = new BookingService();
+        System.out.println();
+
+
         System.out.println("--------------getAvailableTrips");
-        System.out.println(bookingService.getAvailableTrips(Destinations.PARIS,1));
-        System.out.println(bookingService.getAvailableTrips(Destinations.WASHINGTON,5));
+        System.out.println(bookingService.getAvailableTrips(Destinations.PARIS,
+                LocalDate.of(2022,11,18),7));
+        System.out.println(bookingService.getAvailableTrips(Destinations.WASHINGTON,
+                LocalDate.of(2022,11,18),15));
         System.out.println("--------------getBookingByNameSurname");
-        System.out.println(bookingService.getBookingByNameSurname("Bill","Smith"));
+//        System.out.println(bookingService.getBookingByNameSurname("Bill","Smith"));
     }
 }
