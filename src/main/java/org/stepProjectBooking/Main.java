@@ -28,7 +28,7 @@ public class Main {
 
         System.out.println("--------------getBookingById");
         System.out.println(bookingService.getBookingById(123456));
-        bookingService.deleteBookingById(123456);
+        //bookingService.deleteBookingById(123456);
         System.out.println();
         System.out.println("--------------getBookingByNameSurname");
         System.out.println(bookingService.getBookingByNameSurname("Bill","Smith"));
@@ -37,5 +37,10 @@ public class Main {
         System.out.println();
 
         System.out.println(bookingService.getBookingByNameSurname("Stan","Second"));
+
+        var a =bookingService.getTripInfoById("1");
+
+
+        System.out.println(a);
     }
 }

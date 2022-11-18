@@ -66,7 +66,7 @@ public class DataBase {
 
         Purchaser billSmith = new Purchaser("Bill", "Smith");
         Purchaser stanSecond = new Purchaser("Stan", "Second");
-        Trip KP475 = new Trip("KP475", LocalTime.of(10, 05, 00), Departures.KYIV, Destinations.PARIS, 20);
+        Trip KP475 = new Trip("KP475", LocalTime.of(10, 45, 00), Departures.KYIV, Destinations.PARIS, 25);
 
         bookingList.add(new Booking(123456,billSmith, KP475, 124523, createPassengerList1()));
         bookingList.add(new Booking(123457,stanSecond, KP475, 124527, createPassengerList2()));
@@ -105,7 +105,7 @@ public class DataBase {
 
     public static List<Trip> createTripList() {
         List<Trip> tripList = new ArrayList<>();
-        Trip KP475 = new Trip("KP475", LocalTime.of(10, 05, 00), Departures.KYIV, Destinations.PARIS, 20);
+        Trip KP475 = new Trip("KP475", LocalTime.of(11, 05, 00), Departures.KYIV, Destinations.PARIS, 25);
         Trip KN045 = new Trip("KN045", LocalTime.of(4, 00, 00), Departures.KYIV, Destinations.NEW_YORK, 5);
         Trip KC021 = new Trip("KC021", LocalTime.of(10, 40, 00), Departures.KYIV, Destinations.PARIS, 35);
         Trip KC579 = new Trip("KC579", LocalTime.of(21, 30, 00), Departures.KYIV, Destinations.COLOGNE, 5);
@@ -130,7 +130,7 @@ public class DataBase {
 
     public static List<Passenger> createPassengerList1() {
         List<Passenger> passengerList = new ArrayList<>();
-        Trip KP475 = new Trip("KP475", LocalTime.of(10, 05, 00), Departures.KYIV, Destinations.PARIS, 10);
+        Trip KP475 = new Trip("KP475", LocalTime.of(11, 05, 00), Departures.KYIV, Destinations.PARIS, 10);
         passengerList.add(new Passenger("Bill", "Soyer", KP475, 124523));
         passengerList.add(new Passenger("Mike", "Murray", KP475, 124523));
         passengerList.add(new Passenger("Liza", "Trust", KP475, 124523));

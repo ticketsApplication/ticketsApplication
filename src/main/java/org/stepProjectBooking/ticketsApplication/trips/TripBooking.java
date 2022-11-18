@@ -28,6 +28,8 @@ public class TripBooking implements Serializable {
         return a;
     }
 
+
+
     /**
      * Конструктор для базы данных
      */
@@ -39,10 +41,10 @@ public class TripBooking implements Serializable {
         this.isActive = isActive;
     }
 
-    public TripBooking(Trip trip, int freePlace, LocalDateTime date) {
+    public TripBooking(Trip trip, /*int freePlace,*/ LocalDateTime date) {
 
         this.trip = trip;
-        this.freePlace = getFreePlace();
+        this.freePlace = trip.getCapacity();
         this.date = date; // should be defined by other method or before creation
         this.bookingList = new ArrayList<>();
         this.isActive = true;
@@ -60,9 +62,9 @@ public class TripBooking implements Serializable {
 //        return getFreePlaces();
 //    }
 
-    public void setFreePlace(int freePlace) {
-        this.freePlace = freePlace;
-    }
+//    public void setFreePlace(int freePlace) {
+//        this.freePlace = freePlace;
+//    }
 
     public boolean isActive() {
         return isActive;

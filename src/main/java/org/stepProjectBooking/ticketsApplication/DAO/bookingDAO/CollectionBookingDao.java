@@ -26,4 +26,13 @@ public class CollectionBookingDao {
     public  List<Trip> getTripList(){
         return dataBase.getTripList();
     }
+    public Trip getTripById(String tripId){
+        List <Trip> tripList = getTripList();
+        for(Trip trip:tripList){
+            if(trip.getTripId().equals(tripId)){
+                return trip;
+            }
+        }
+        return null;
+    }
 }
