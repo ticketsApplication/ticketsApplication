@@ -5,7 +5,7 @@ import org.stepProjectBooking.ticketsApplication.trips.Booking;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollectionBookingDao {
+public class CollectionBookingDao{
 
     private List<Booking> bookingList=new ArrayList<>(); //BookingDatabase
 

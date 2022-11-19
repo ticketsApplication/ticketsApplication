@@ -11,13 +11,13 @@ public interface BookingDao {
     List<Booking> getAllBookings();
 
     /**Возвращает бронь по id*/
-    Booking getBookingById(UUID id);
+    Booking getBookingById(int id);
 
     /**Сохраняет бронь*/
     void saveBooking (Booking booking);
 
     /**Удаляет бронь по id*/
-    void deleteBookingById(UUID id);
+    void deleteBookingById(int id);
 
 
 
