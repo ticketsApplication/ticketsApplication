@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="19.0.1" class="java.beans.XMLDecoder">
+ <object class="org.stepProjectBooking.ticketsApplication.trips.TripList" id="TripList0">
+  <void property="trips">
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object class="java.lang.Enum" id="Departures0" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Departures</class>
+       <string>KYIV</string>
+      </object>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations0" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>BUCHAREST</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>18</int>
+       <int>20</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM706</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>NEW_YORK</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>17</int>
+       <int>40</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM611</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations1" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>PRAGUE</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>7</int>
+       <int>20</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM338</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations2" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>BRATISLAVA</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>0</int>
+       <int>50</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM121</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations3" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>COLOGNE</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>4</int>
+       <int>5</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM347</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations2"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>23</int>
+       <int>40</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM244</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations4" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>LISBON</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>18</int>
+       <int>55</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM011</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations5" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>PARIS</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>15</int>
+       <int>5</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM015</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations6" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>LONDON</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>13</int>
+       <int>55</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM330</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations0"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>9</int>
+       <int>35</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM808</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations0"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>9</int>
+       <int>5</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM889</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations2"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>18</int>
+       <int>55</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM075</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations7" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>FRANKFURT</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>23</int>
+       <int>5</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM791</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations5"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>0</int>
+       <int>55</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM204</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" id="Destinations8" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>CHICAGO</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>13</int>
+       <int>20</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM231</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations1"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>18</int>
+       <int>0</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM318</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations6"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>7</int>
+       <int>25</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM705</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations1"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>14</int>
+       <int>35</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM877</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations7"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>5</int>
+       <int>55</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM162</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>BRUSSELS</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>18</int>
+       <int>10</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM233</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations8"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>19</int>
+       <int>45</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM422</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations3"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>19</int>
+       <int>45</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM404</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>BERLIN</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>16</int>
+       <int>50</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM704</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>AMSTERDAM</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>3</int>
+       <int>35</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM659</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations4"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>17</int>
+       <int>5</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM535</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations0"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>20</int>
+       <int>30</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM927</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>TOKYO</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>19</int>
+       <int>5</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM043</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object class="java.lang.Enum" method="valueOf">
+       <class>org.stepProjectBooking.ticketsApplication.trips.Destinations</class>
+       <string>WASHINGTON</string>
+      </object>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>5</int>
+       <int>30</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM206</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations5"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>21</int>
+       <int>10</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM187</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="org.stepProjectBooking.ticketsApplication.trips.Trip">
+     <void property="capacity">
+      <int>100</int>
+     </void>
+     <void property="departure">
+      <object idref="Departures0"/>
+     </void>
+     <void property="destination">
+      <object idref="Destinations3"/>
+     </void>
+     <void property="timeTrip">
+      <object class="java.time.LocalTime" method="of">
+       <int>22</int>
+       <int>5</int>
+       <int>0</int>
+      </object>
+     </void>
+     <void property="tripId">
+      <string>ADM717</string>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>
