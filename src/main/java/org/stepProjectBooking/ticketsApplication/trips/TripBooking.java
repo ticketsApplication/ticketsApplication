@@ -18,6 +18,7 @@ public class TripBooking implements Serializable {
     private boolean isActive;
 
     private LocalDateTime date;
+
     public TripBooking(Trip trip, int freePlace, LocalDateTime date) {
 
         this.trip = trip;
@@ -26,6 +27,9 @@ public class TripBooking implements Serializable {
         this.bookingList = new ArrayList<>();
         this.isActive = true;
     }
+
+
+
     public List<Booking> getBookingList() {
         return bookingList;
     }
