@@ -13,8 +13,8 @@ public class TripBooking implements Serializable {
 
     private Trip trip;
     private List<Booking> bookingList;
-    private int freePlace;
-    private boolean isActive;
+    //private int freePlace;
+    //private boolean isActive;
 
     private LocalDateTime date;
 
@@ -24,8 +24,7 @@ public class TripBooking implements Serializable {
         for (Booking booking : bookingList) {
             passNum = passNum + booking.getPassengerList().size();
         }
-        int a = trip.getCapacity() - passNum;
-        return a;
+        return trip.getCapacity() - passNum;
     }
 
 
@@ -33,21 +32,21 @@ public class TripBooking implements Serializable {
     /**
      * Конструктор для базы данных
      */
-    public TripBooking(LocalDateTime date, Trip trip, List<Booking> bookingList, boolean isActive) {
+    public TripBooking(LocalDateTime date, Trip trip, List<Booking> bookingList) {
         this.date = date;
         this.trip = trip;
         this.bookingList = bookingList;
-        this.freePlace = getFreePlace();
-        this.isActive = isActive;
+    //    this.freePlace = getFreePlace();
+     //   this.isActive = isActive;
     }
 
-    public TripBooking(Trip trip, /*int freePlace,*/ LocalDateTime date) {
+    public TripBooking(Trip trip,  LocalDateTime date) {
 
         this.trip = trip;
-        this.freePlace = trip.getCapacity();
+   //     this.freePlace = trip.getCapacity();
         this.date = date; // should be defined by other method or before creation
         this.bookingList = new ArrayList<>();
-        this.isActive = true;
+   //     this.isActive = true;
     }
 
     public List<Booking> getBookingList() {
@@ -58,21 +57,18 @@ public class TripBooking implements Serializable {
         this.bookingList = bookingList;
     }
 
-//    public int getFreePlace() {
-//        return getFreePlaces();
-//    }
 
 //    public void setFreePlace(int freePlace) {
 //        this.freePlace = freePlace;
 //    }
 
-    public boolean isActive() {
-        return isActive;
-    }
+    //public boolean isActive() {
+     //   return isActive;
+  // }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
+//    public void setActive(boolean active) {
+//        isActive = active;
+//    }
 
     public LocalDateTime getDate() {
         return date;
@@ -91,4 +87,14 @@ public class TripBooking implements Serializable {
         this.trip = trip;
     }
 
+    @Override
+    public String toString() {
+        return "TripBooking{" +
+                "trip=" + trip +
+                ", bookingList=" + bookingList +
+                ", freePlace=" + getFreePlace() +
+                //", isActive=" + isActive +
+                ", date=" + date +
+                '}';
+    }
 }

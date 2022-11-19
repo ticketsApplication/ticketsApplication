@@ -1,13 +1,13 @@
 package org.stepProjectBooking.ticketsApplication.DAO.bookingDAO;
 
-import org.stepProjectBooking.ticketsApplication.DAO.DataBase;
+import org.stepProjectBooking.ticketsApplication.DAO.TestDataBase;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
 import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
 
 import java.util.List;
 
 public class CollectionBookingDao {
-    DataBase dataBase = new DataBase();
+    TestDataBase dataBase = new TestDataBase();
     public List<TripBooking> getTripBookingList(){
         return dataBase.getTripBookingList();
     }

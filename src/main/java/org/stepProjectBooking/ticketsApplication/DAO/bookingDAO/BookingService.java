@@ -5,9 +5,11 @@ import org.stepProjectBooking.ticketsApplication.trips.Destinations;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
 import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
 import org.stepProjectBooking.ticketsApplication.user.Passenger;
+import org.stepProjectBooking.ticketsApplication.user.Purchaser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +17,12 @@ public class BookingService /*implements BookingDao*/ {
 
     private final CollectionBookingDao collectionBookingDao = new CollectionBookingDao();
 
-    public List<TripBooking> tripBookingList() {
+    private List<TripBooking> getTripBookingList() {
         return collectionBookingDao.getTripBookingList();
     }
 
     public Booking getBookingById(int id) {
-        List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
+        List<TripBooking> tripBookingList = getTripBookingList();
         for (TripBooking tripBooking : tripBookingList) {
             for (Booking booking : tripBooking.getBookingList()) {
                 if (booking.getIdBooking() == id) {
@@ -32,24 +34,25 @@ public class BookingService /*implements BookingDao*/ {
         return null;
     }
 
-    public void deleteBookingById(int id) {
-        List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
+    public boolean deleteBookingById(int id) {
+        List<TripBooking> tripBookingList = getTripBookingList();
         for (TripBooking tripBooking : tripBookingList) {
             for (Booking booking : tripBooking.getBookingList()) {
                 if (booking.getIdBooking() == id && tripBooking.getDate().isAfter(LocalDateTime.now())) {
                     tripBooking.getBookingList().remove(booking);
                     collectionBookingDao.setTripBookingList(tripBookingList);
-                    return;
+                    return true;
                 }
             }
         }
         System.out.println("id not found");
+        return false;
     }
 
     public List<Booking> getBookingByNameSurname(String name, String surname) {
 
         List<Booking> list = new ArrayList<>();
-        List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
+        List<TripBooking> tripBookingList = getTripBookingList();
 
         for (TripBooking tripBooking : tripBookingList) {
             for (Booking booking : tripBooking.getBookingList()) {
@@ -67,26 +70,12 @@ public class BookingService /*implements BookingDao*/ {
         return list;
     }
 
-//    public void saveBooking(Booking booking) {
-//        List<Booking> bookingList = collectionBookingDao.getBookingList();
-//        for (int i = 0; i < bookingList.size(); i++) {
-//            if (bookingList.get(i).getIdBooking() == booking.getIdBooking()) {
-//                bookingList.set(i, booking);
-//                collectionBookingDao.setBookingList(bookingList);
-//                return;
-//            }
-//        }
-//        bookingList.add(booking);
-//        collectionBookingDao.setBookingList(bookingList);
-
-//    }
-
-    public TripBooking getTripBookingByTripIdData(String tripId, LocalDateTime date) {
-        List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
+    public TripBooking getTripBookingByTripIdData(String tripId, LocalDate date) {
+        List<TripBooking> tripBookingList = getTripBookingList();
         for (TripBooking tripBooking : tripBookingList) {
             if (tripBooking.getTrip().getTripId().equals(tripId) &&
                     tripBooking.getDate().getDayOfYear() == date.getDayOfYear() &&
-                    tripBooking.getDate().isAfter(date)) {
+                    tripBooking.getDate().isAfter(date.atStartOfDay())) {
                 return tripBooking;
             }
         }
@@ -95,11 +84,11 @@ public class BookingService /*implements BookingDao*/ {
 
     public TripBooking getTripInfoById(String tripId) {
 
-        if(collectionBookingDao.getTripById(tripId)==null)return null;
-        if (getTripBookingByTripIdData(tripId, LocalDateTime.now()) == null) {
+        if (collectionBookingDao.getTripById(tripId) == null) return null;
+        if (getTripBookingByTripIdData(tripId, LocalDate.now()) == null) {
             return new TripBooking(collectionBookingDao.getTripById(tripId), LocalDateTime.now());
         }
-        return getTripBookingByTripIdData(tripId, LocalDateTime.now());
+        return getTripBookingByTripIdData(tripId, LocalDate.now());
     }
 
     public List<Trip> getAvailableTrips(Destinations destination, LocalDate data, int passengersNum) {
@@ -110,7 +99,7 @@ public class BookingService /*implements BookingDao*/ {
 
         List<Trip> tripList = new ArrayList<>(availableTrips);
 
-        List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
+        List<TripBooking> tripBookingList = getTripBookingList();
         for (TripBooking tripBooking : tripBookingList) {
             if (tripBooking.getDate().getDayOfYear() == data.getDayOfYear()) {
                 currentDataTBList.add(tripBooking);
@@ -127,5 +116,31 @@ public class BookingService /*implements BookingDao*/ {
                 .filter(s -> s.getCapacity() >= passengersNum).toList();
 
         return availableTrips;
+    }
+
+    public int createNewBooking(Purchaser purchaser, Trip trip, List<Passenger> passengerList, LocalDate date) {
+        Booking booking = new Booking(purchaser, trip, 0, passengerList);
+
+        if (trip.getTimeTrip().isBefore(LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute()))) {
+            date = date.plusDays(1);
+        }
+
+        TripBooking tripBooking = getTripBookingByTripIdData(trip.getTripId(), date);
+
+        if (tripBooking == null) {
+            tripBooking = new TripBooking(date.atTime(trip.getTimeTrip()), trip, new ArrayList<>());
+            tripBooking.getBookingList().add(booking);
+            getTripBookingList().add(tripBooking);
+
+            return booking.getIdBooking();
+        }
+        getTripBookingList().remove(tripBooking);
+        tripBooking.getBookingList().add(booking);
+        getTripBookingList().add(tripBooking);
+        return booking.getIdBooking();
+    }
+
+    public void saveTripBookingList(List<TripBooking> tripBookingList) {
+        collectionBookingDao.setTripBookingList(tripBookingList);
     }
 }

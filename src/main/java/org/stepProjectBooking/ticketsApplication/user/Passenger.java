@@ -4,7 +4,7 @@ import org.stepProjectBooking.ticketsApplication.trips.Trip;
 
 public class Passenger extends User {
 
-    private Trip tripId; //String tripId;  // Предлагаю Trip trip
+    private Trip tripId;
     int bookId;
 
     public Passenger(String name, String surname) {
