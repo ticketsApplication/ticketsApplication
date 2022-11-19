@@ -92,6 +92,7 @@ public class BookingService /*implements BookingDao*/ {
     }
 
     public List<Trip> getAvailableTrips(Destinations destination, LocalDate data, int passengersNum) {
+        if (data.isBefore(LocalDate.now())) return new ArrayList<>();
         List<TripBooking> currentDataTBList = new ArrayList<>();
         List<Trip> availableTrips = new ArrayList<>(collectionBookingDao.getTripList()
                 .stream()

@@ -25,10 +25,6 @@ public class BookingController {
         return bookingService.getBookingByNameSurname(name, surname);
     }
 
-    public TripBooking getTripBookingByTripIdData(String tripId, LocalDate date) {
-        return bookingService.getTripBookingByTripIdData(tripId, date);
-    }
-
     public TripBooking getTripInfoById(String tripId) {
         return bookingService.getTripInfoById(tripId);
     }
