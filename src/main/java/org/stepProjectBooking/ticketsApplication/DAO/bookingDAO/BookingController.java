@@ -45,7 +45,6 @@ public class BookingController {
         bookingService.saveTripBookingList(tripBookingList);
     }
 
-    BookingService bookingService = new BookingService();
     public TripBookingList downLoadAllTrips () {
         return  bookingService.downLoadAllTrips();
     }

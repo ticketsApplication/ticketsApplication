@@ -14,11 +14,12 @@ public class CollectionBookingDao {
     public void setTripBookingList(List<TripBooking> tripBookingList){
         dataBase.setTripBookingList(tripBookingList);
     }
-public class CollectionBookingDao{
+//public class CollectionBookingDao{
 
 //    public List<Booking> getBookingList() {
 //        return dataBase.getBookingList();
 //    }
+
 //
 //    public void setBookingList(List<Booking> bookingList) {
 //        dataBase.setBookingList(bookingList);

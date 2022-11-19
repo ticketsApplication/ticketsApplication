@@ -21,16 +21,17 @@ import java.util.List;
 import java.util.UUID;
 
 public class BookingService /*implements BookingDao*/ {
-public class BookingService  {
-
     private final CollectionBookingDao collectionBookingDao = new CollectionBookingDao();
 
     private List<TripBooking> getTripBookingList() {
         return collectionBookingDao.getTripBookingList();
-    private static final String TRIP_BOOKING_LIST_FILE_NAME="trip_book_list.xml";
-    public List<Booking> getAllBookings() {
-        return new ArrayList<>(collectionBookingDao.getBookingList());
     }
+
+    private static final String TRIP_BOOKING_LIST_FILE_NAME = "trip_book_list.xml";
+
+//    public List<Booking> getAllBookings() {
+//        return new ArrayList<>(collectionBookingDao.getBookingList());
+//    }
 
     public Booking getBookingById(int id) {
         List<TripBooking> tripBookingList = getTripBookingList();
@@ -54,29 +55,34 @@ public class BookingService  {
                     collectionBookingDao.setTripBookingList(tripBookingList);
                     return true;
                 }
-    public void saveBooking(Booking booking) {
-        List<Booking> bookingList = collectionBookingDao.getBookingList();
-        for (int i = 0; i < bookingList.size(); i++) {
-            if (bookingList.get(i).getIdBooking() == booking.getIdBooking()) {  //когда будет bookingId
-                bookingList.set(i, booking);
-                return;
             }
         }
-        bookingList.add(booking);
-    }
-
-    public void deleteBookingById(int id) {
-        List<Booking> bookingList = collectionBookingDao.getBookingList();
-        for (int i = 0; i < bookingList.size(); i++) {
-            if (bookingList.get(i).getIdBooking() == id) {  //когда будет bookingId
-                bookingList.remove(i);
-                collectionBookingDao.setBookingList(bookingList);
-                return;
-            }
-        }
-        System.out.println("id not found");
         return false;
     }
+
+//        public void saveBooking(Booking booking) {
+//            List<Booking> bookingList = collectionBookingDao.getBookingList();
+//            for (int i = 0; i < bookingList.size(); i++) {
+//                if (bookingList.get(i).getIdBooking() == booking.getIdBooking()) {  //когда будет bookingId
+//                    bookingList.set(i, booking);
+//                    return;
+//                }
+//            }
+//            bookingList.add(booking);
+//        }
+
+//        public void deleteBookingById(int id) {
+//            List<Booking> bookingList = collectionBookingDao.getBookingList();
+//            for (int i = 0; i < bookingList.size(); i++) {
+//                if (bookingList.get(i).getIdBooking() == id) {  //когда будет bookingId
+//                    bookingList.remove(i);
+//                    collectionBookingDao.setBookingList(bookingList);
+//                    return;
+//                }
+//            }
+//            System.out.println("id not found");
+//            return false;
+//        }
 
     public List<Booking> getBookingByNameSurname(String name, String surname) {
 
@@ -148,12 +154,13 @@ public class BookingService  {
         return availableTrips;
     }
 
-    public void uploadTripBookingList(TripBookingList tripBookingList) throws FileNotFoundException, IOException {
+    public void uploadTripBookingList(TripBookingList tripBookingList) throws
+            FileNotFoundException, IOException {
 
         XMLEncoder xmlEncoder = null;
 
-        try{
-            xmlEncoder=new XMLEncoder(new BufferedOutputStream(new FileOutputStream(TRIP_BOOKING_LIST_FILE_NAME)));
+        try {
+            xmlEncoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(TRIP_BOOKING_LIST_FILE_NAME)));
             xmlEncoder.setPersistenceDelegate(LocalDateTime.class,
                     new PersistenceDelegate() {
                         @Override
@@ -162,12 +169,12 @@ public class BookingService  {
                             return new Expression(localDateTime,
                                     LocalDateTime.class,
                                     "of",
-                                    new Object[]{localDateTime.getYear(),localDateTime.getMonth(),localDateTime.getDayOfMonth(),
+                                    new Object[]{localDateTime.getYear(), localDateTime.getMonth(), localDateTime.getDayOfMonth(),
                                             localDateTime.getHour(), localDateTime.getMinute(), localDateTime.getSecond()});
                         }
                     });
 
-        }catch(FileNotFoundException fileNotFound){
+        } catch (FileNotFoundException fileNotFound) {
             System.out.println("ERROR: While Creating or Opening the File animalPack.xml");
         } catch (IOException e) {
             e.getMessage();
@@ -177,11 +184,11 @@ public class BookingService  {
         xmlEncoder.close();
     }
 
-    public TripBookingList downLoadAllTrips () {
+    public TripBookingList downLoadAllTrips() {
 
-        XMLDecoder decoder=null;
+        XMLDecoder decoder = null;
         try {
-            decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream(TRIP_BOOKING_LIST_FILE_NAME)));
+            decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(TRIP_BOOKING_LIST_FILE_NAME)));
 
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: File dvd.xml not found");
@@ -191,10 +198,9 @@ public class BookingService  {
 
     }
 
-
-}
-
-    public int createNewBooking(Purchaser purchaser, Trip trip, List<Passenger> passengerList, LocalDate date) {
+    public int createNewBooking(Purchaser purchaser, Trip
+            trip, List<Passenger> passengerList, LocalDate
+                                        date) {
         Booking booking = new Booking(purchaser, trip, 0, passengerList);
 
         if (trip.getTimeTrip().isBefore(LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute()))) {

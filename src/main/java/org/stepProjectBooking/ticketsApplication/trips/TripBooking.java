@@ -56,9 +56,6 @@ public class TripBooking implements Serializable {
         this.bookingList = bookingList;
     }
 
-    public int getFreePlace() {
-        return freePlace;
-    }
 
 //    public void setFreePlace(int freePlace) {
 //        this.freePlace = freePlace;
