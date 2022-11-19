@@ -14,6 +14,7 @@ public class CollectionBookingDao {
     public void setTripBookingList(List<TripBooking> tripBookingList){
         dataBase.setTripBookingList(tripBookingList);
     }
+public class CollectionBookingDao{
 
 //    public List<Booking> getBookingList() {
 //        return dataBase.getBookingList();

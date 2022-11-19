@@ -2,6 +2,8 @@ package org.stepProjectBooking.ticketsApplication.trips;
 
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -28,7 +30,8 @@ public class Trip implements Serializable {
     }
 
     public String prettyFormat () {
-        return String.format(" %5s  %s - %-10s  %s %s",  tripId, departure, destination, "\uD83D\uDEEB", timeTrip );
+        return String.format(" %5s  %s - %-10s  %s %s",
+                tripId, departure, destination, "\uD83D\uDEEB", timeTrip);
     }
 
     @Override
@@ -45,7 +48,6 @@ public class Trip implements Serializable {
     }
 
     public Trip(String tripId, LocalTime timeTrip, Departures departure, Destinations destination, int capacity) {
-
         this.tripId = tripId;
         this.timeTrip = timeTrip;
         this.departure = departure;

@@ -52,11 +52,13 @@ public class TripBooking implements Serializable {
     public List<Booking> getBookingList() {
         return bookingList;
     }
-
     public void setBookingList(List<Booking> bookingList) {
         this.bookingList = bookingList;
     }
 
+    public int getFreePlace() {
+        return freePlace;
+    }
 
 //    public void setFreePlace(int freePlace) {
 //        this.freePlace = freePlace;

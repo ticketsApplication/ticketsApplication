@@ -8,12 +8,11 @@ import java.util.List;
 public class CollectionTripDao {
     private List<Trip> tripList = new ArrayList<>(); //database
 
-    public List<Trip> getCollectionTripDao() {
+    public List<Trip> getTripList() {
         return tripList;
     }
 
-    public void setCollectionTripDao(List<Trip> tripList) {
+    public void setTripList(List<Trip> tripList) {
         this.tripList = tripList;
     }
-
 }

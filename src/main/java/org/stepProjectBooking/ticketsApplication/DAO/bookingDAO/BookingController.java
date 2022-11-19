@@ -10,6 +10,10 @@ import org.stepProjectBooking.ticketsApplication.user.Purchaser;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.stepProjectBooking.ticketsApplication.trips.TripBookingList;
+
+import java.io.IOException;
+
 public class BookingController {
     private final BookingService bookingService = new BookingService();
 
@@ -40,4 +44,14 @@ public class BookingController {
     public void saveTripBookingList(List<TripBooking> tripBookingList) {
         bookingService.saveTripBookingList(tripBookingList);
     }
+
+    BookingService bookingService = new BookingService();
+    public TripBookingList downLoadAllTrips () {
+        return  bookingService.downLoadAllTrips();
+    }
+
+    public void uploadTripBookingList(TripBookingList tripBookingList) throws IOException {
+        bookingService.uploadTripBookingList(tripBookingList);
+    }
+
 }
