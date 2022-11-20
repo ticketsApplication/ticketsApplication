@@ -1,12 +1,13 @@
 package org.stepProjectBooking.ticketsApplication.trips;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-public class TripCreator {
+public class TripCreator implements Serializable {
 
 
     Random random = new Random();
@@ -18,6 +19,7 @@ public class TripCreator {
             .distinct()
             .limit(500) // 500 id creation
             .collect(Collectors.toList());
+
 
 
 //    private void fillIdTrip () {
