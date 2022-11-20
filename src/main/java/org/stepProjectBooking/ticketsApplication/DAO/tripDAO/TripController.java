@@ -39,4 +39,12 @@ public class TripController {
         return tripService.downLoadAllTrips().getTrips();
     }
 
+    public void uploadTripBookingListObject(TripList tripList) {
+        tripService.uploadTripListObject(tripList);
+    }
+
+    public TripList downLoadAllTripsObject () {
+        return tripService.downLoadAllTripsObject();
+    }
+
 }
