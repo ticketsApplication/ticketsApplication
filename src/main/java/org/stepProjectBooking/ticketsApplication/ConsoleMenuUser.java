@@ -2,6 +2,7 @@ package org.stepProjectBooking.ticketsApplication;
 
 
 import org.stepProjectBooking.ticketsApplication.DAO.tripDAO.TripController;
+
 import org.stepProjectBooking.ticketsApplication.trips.Destinations;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
 import org.stepProjectBooking.ticketsApplication.user.Passenger;
@@ -15,10 +16,12 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;
 
+
 public class ConsoleMenuUser {
 
     Scanner scanner =  new Scanner(System.in);
     private static final Map<String, Runnable> consoleMenuDispatcher = new HashMap<>();
+
 
     private static final int TIME_BEFORE_FLIGHT_BLOCK_BOOKING = 2;
 
@@ -36,16 +39,19 @@ public class ConsoleMenuUser {
 
 
 
+
     public ConsoleMenuUser() {
         consoleMenuDispatcher.put("1", this :: showTrips24Hours);
         consoleMenuDispatcher.put("2", this :: showInfoTrip);
         consoleMenuDispatcher.put("3", this :: searchAndBooking);
         consoleMenuDispatcher.put("4", this :: cancelBooking);
         consoleMenuDispatcher.put("5", this :: showMyTrips);
+
         consoleMenuDispatcher.put("6", this :: exitApplication);
     }
 
     public void run() {
+
 
         System.out.println("AviaDreamer greets you!\n" +
                 "Welcome on board!\n" +
@@ -54,8 +60,9 @@ public class ConsoleMenuUser {
         String choice;
         while (isContinue) {
             showMainMenu();
-            System.out.println("Please choose the number of your action and print it and enter!");
+
             if (scanner.hasNextInt(consoleMenuDispatcher.size() + 1))  {
+
                 choice = scanner.next().toLowerCase();
                 runnable = consoleMenuDispatcher.get(choice);
                 runnable.run();
@@ -73,9 +80,11 @@ public class ConsoleMenuUser {
         System.out.println("3: Search and book your cosy trip");
         System.out.println("4: Cancel booking");
         System.out.println("5: My trips");
+
         System.out.println("6: Leave application");
 
     }
+
 
     private void exitApplication() {
         System.out.println("Thank you for being with AviaDreamer!\n" +
@@ -85,6 +94,7 @@ public class ConsoleMenuUser {
     }
 
     private void showMyTrips() {
+
         Purchaser purchaser = new Purchaser();
 
         System.out.println("Please enter your name and surname!");
@@ -95,9 +105,11 @@ public class ConsoleMenuUser {
 
 
 
+
     }
 
     private void cancelBooking() {
+
         boolean isContinue = true;
         int bookingID;
         int temp;
@@ -419,6 +431,7 @@ public class ConsoleMenuUser {
     private void showTrips24Hours() {
         //Use TreeMap to sort updated trips by DateTime
         Map <LocalDateTime, Trip> sortedByDateTimeListTrip= new TreeMap<>();
+
         for (Trip trip:
                 tripController.downLoadAllTrips()) {
             sortedByDateTimeListTrip.put(actualize(trip.getTimeTrip()), trip);
