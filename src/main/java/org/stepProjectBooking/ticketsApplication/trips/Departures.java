@@ -1,6 +1,8 @@
 package org.stepProjectBooking.ticketsApplication.trips;
 
-public enum Departures {
+import java.io.Serializable;
+
+public enum Departures implements Serializable {
     KYIV,
     LVIV
 }

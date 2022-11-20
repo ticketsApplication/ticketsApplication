@@ -1,6 +1,8 @@
 package org.stepProjectBooking.ticketsApplication.trips;
 
-public enum Destinations {
+import java.io.Serializable;
+
+public enum Destinations implements Serializable {
 
     PARIS (1),
     LONDON (2),
