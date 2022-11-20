@@ -45,11 +45,11 @@ public class BookingController {
         bookingService.saveTripBookingList(tripBookingList);
     }
 
-    public TripBookingList downLoadAllTrips () {
-        return  bookingService.downLoadAllTrips();
-    }
+//    public TripBookingList downLoadAllTrips () {
+//        return  bookingService.downLoadAllTrips();
+//    }
 
-    public void uploadTripBookingList(TripBookingList tripBookingList) throws IOException {
+    public void uploadTripBookingList(List<TripBooking> tripBookingList) throws IOException {
         bookingService.uploadTripBookingList(tripBookingList);
     }
 
