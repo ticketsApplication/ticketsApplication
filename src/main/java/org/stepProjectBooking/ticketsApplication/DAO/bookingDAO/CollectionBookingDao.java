@@ -8,8 +8,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CollectionBookingDao {
     TripController tripController = new TripController();
+
 
     private static final String TRIP_BOOKING_LIST_FILE_NAME = "trip_book_list.xml";
     public List<TripBooking> getTripBookingList(){
