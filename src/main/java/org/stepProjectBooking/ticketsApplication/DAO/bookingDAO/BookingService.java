@@ -1,6 +1,7 @@
 package org.stepProjectBooking.ticketsApplication.DAO.bookingDAO;
 
 import org.stepProjectBooking.ticketsApplication.trips.Booking;
+
 import org.stepProjectBooking.ticketsApplication.trips.Destinations;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
 import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
@@ -12,11 +13,18 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.io.*;
 
+
+import java.beans.*;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class BookingService /*implements BookingDao*/ {
     private final CollectionBookingDao collectionBookingDao = new CollectionBookingDao();
+
 
     private List<TripBooking> getTripBookingList() {
         return collectionBookingDao.getTripBookingList();
@@ -34,6 +42,7 @@ public class BookingService /*implements BookingDao*/ {
                 if (booking.getIdBooking() == id) {
                     return booking;
                 }
+
             }
         }
         System.out.println("id not found");
@@ -53,6 +62,7 @@ public class BookingService /*implements BookingDao*/ {
         }
         return false;
     }
+
 
 //        public void saveBooking(Booking booking) {
 //            List<Booking> bookingList = collectionBookingDao.getBookingList();
@@ -94,10 +104,12 @@ public class BookingService /*implements BookingDao*/ {
                             passenger.getSurname().equals(surname))
                         if (!list.contains(booking)) list.add(booking);
                 }
+
             }
         }
         return list;
     }
+
 
     public TripBooking getTripBookingByTripIdData(String tripId, LocalDate date) {
         List<TripBooking> tripBookingList = getTripBookingList();

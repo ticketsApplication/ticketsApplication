@@ -1,13 +1,14 @@
 package org.stepProjectBooking;
 
-import org.stepProjectBooking.ticketsApplication.ConsoleMenuUser;
-import org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingController;
-import org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingService;
+
 import org.stepProjectBooking.ticketsApplication.DAO.tripDAO.TripController;
-import org.stepProjectBooking.ticketsApplication.trips.*;
+import org.stepProjectBooking.ticketsApplication.trips.Departures;
+import org.stepProjectBooking.ticketsApplication.trips.Trip;
+import org.stepProjectBooking.ticketsApplication.trips.TripCreator;
+import org.stepProjectBooking.ticketsApplication.trips.TripList;
 
 import java.io.IOException;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,23 +16,20 @@ import java.util.List;
 public class Main {
     public static void main(String[] args)  {
 
-        BookingController bookingController = new BookingController();
-        System.out.println("________________");
-        System.out.println(bookingController.getBookingById(123457));
-        System.out.println("________________");
-        System.out.println(bookingController.getAvailableTrips(Destinations.WASHINGTON,
-                LocalDate.of(2022,12,25),5));
-        System.out.println("________________");
-        System.out.println(bookingController.getBookingByNameSurname("Mike", "Murray"));
-        System.out.println("________________");
-        System.out.println(bookingController.getTripInfoById("ADM404"));
-        System.out.println("________________");
-        System.out.println(bookingController.getAvailableTrips(Destinations.PARIS,
-                LocalDate.of(2022, 12, 25), 10));
+
+        List<Trip> trips=  new ArrayList<>();
+        TripList tripList = new TripList();
 
 
 
 
+//        for (int i = 0; i < 30; i++) {
+//            trip = tripCreator.createTrip();
+//            trips.add(trip);
+//            System.out.println(trip.prettyFormat());
+//        }
+
+        tripList.setTrips(trips);
 
         System.out.println("________________");
 
@@ -42,6 +40,17 @@ public class Main {
 
         TripController tripController = new TripController();
 
+        try {
+            tripController.uploadTripList(tripList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+//        tripList = tripController.downLoadAllTrips();
+//
+//        trips = tripList.getTrips();
+//
+//        trips.stream().forEach(trip1 -> System.out.println(trip1.prettyFormat()));
 
 
     }
