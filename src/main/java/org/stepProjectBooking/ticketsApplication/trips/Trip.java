@@ -30,7 +30,7 @@ public class Trip implements Serializable {
     }
 
     public String prettyFormat () {
-        return String.format(" %5s  %s - %-10s  %s %s",
+        return String.format("%5s  %s - %-10s  %s %s",
                 tripId, departure, destination, "\uD83D\uDEEB", timeTrip);
     }
 

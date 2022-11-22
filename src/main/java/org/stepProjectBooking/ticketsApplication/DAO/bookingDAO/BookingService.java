@@ -160,7 +160,7 @@ public class BookingService /*implements BookingDao*/ {
         return availableTrips;
     }
 
-    public void uploadTripBookingList(List<TripBooking>tripBookingList) {
+    public void uploadTripBookingList(List<TripBooking> tripBookingList) {
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TRIP_BOOKING_LIST_FILE_NAME))) {
 
@@ -171,9 +171,8 @@ public class BookingService /*implements BookingDao*/ {
             System.out.println(e);
         }
     }
-    public int createNewBooking(Purchaser purchaser, Trip
-            trip, List<Passenger> passengerList, LocalDate
-                                        date) {
+    public int createNewBooking(Purchaser purchaser, Trip trip,
+                                List<Passenger> passengerList, LocalDate date) {
         Booking booking = new Booking(purchaser, trip, 0, passengerList);
 
         if (trip.getTimeTrip().isBefore(LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute()))) {

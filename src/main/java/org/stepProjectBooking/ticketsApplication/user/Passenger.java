@@ -17,6 +17,10 @@ public class Passenger extends User {
         this.bookId = bookId;
     }
 
+    public Passenger() {
+
+    }
+
     @Override
     public String toString() {
         return "Passenger{" +

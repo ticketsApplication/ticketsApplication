@@ -13,6 +13,8 @@ public class CollectionBookingDao {
     TripController tripController = new TripController();
 
 
+
+
     private static final String TRIP_BOOKING_LIST_FILE_NAME = "trip_book_list.xml";
     public List<TripBooking> getTripBookingList(){
         List<TripBooking> tripBookingList = new ArrayList<>();
@@ -50,7 +52,7 @@ public class CollectionBookingDao {
         }
     }
     public  List<Trip> getTripList(){
-        return tripController.getTripList().getTrips();
+        return tripController.downLoadAllTrips();
 
     }
     public Trip getTripById(String tripId){

@@ -18,6 +18,10 @@ public class TripBooking implements Serializable {
 
     private LocalDateTime date;
 
+    public TripBooking() {
+
+    }
+
 
     public int getFreePlace() {
         // long passNum = bookingList.stream().map(s -> s.getPassengerList().size()).count();

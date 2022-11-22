@@ -1,10 +1,12 @@
 package org.stepProjectBooking.ticketsApplication;
 
 
+import org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingController;
 import org.stepProjectBooking.ticketsApplication.DAO.tripDAO.TripController;
 
 import org.stepProjectBooking.ticketsApplication.trips.Destinations;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
+import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
 import org.stepProjectBooking.ticketsApplication.user.Passenger;
 import org.stepProjectBooking.ticketsApplication.user.Purchaser;
 import org.stepProjectBooking.ticketsApplication.user.User;
@@ -13,7 +15,6 @@ import org.stepProjectBooking.ticketsApplication.user.User;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;
 
 
@@ -21,8 +22,6 @@ public class ConsoleMenuUser {
 
     Scanner scanner =  new Scanner(System.in);
     private static final Map<String, Runnable> consoleMenuDispatcher = new HashMap<>();
-
-
     private static final int TIME_BEFORE_FLIGHT_BLOCK_BOOKING = 2;
 
     private static final long TIME_BOOKING_IN_ADVANCE = 1;
@@ -32,9 +31,11 @@ public class ConsoleMenuUser {
     final String regexName = "^[A-Z][a-zA-z ]{1,29}$"; // regular expression for name and surname
 
     final Pattern EXIT_PAT = Pattern.compile("^(?i)exit$");
-    List<Trip> trips =  new ArrayList<>();
+
 
     TripController tripController = new TripController();
+
+    BookingController bookingController = new BookingController();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM \uD83D\uDEEB HH:mm");
 
 
@@ -46,23 +47,22 @@ public class ConsoleMenuUser {
         consoleMenuDispatcher.put("3", this :: searchAndBooking);
         consoleMenuDispatcher.put("4", this :: cancelBooking);
         consoleMenuDispatcher.put("5", this :: showMyTrips);
-
         consoleMenuDispatcher.put("6", this :: exitApplication);
     }
 
     public void run() {
 
 
-        System.out.println("AviaDreamer greets you!\n" +
-                "Welcome on board!\n" +
-                "We are happy to help you enjoying your trip!\n");
-        boolean isContinue = true;
+        System.out.println("""
+                AviaDreamer greets you!
+                Welcome on board!
+                We are happy to help you enjoying your trip!
+                """);
+
         String choice;
-        while (isContinue) {
+        while (true) {
             showMainMenu();
-
             if (scanner.hasNextInt(consoleMenuDispatcher.size() + 1))  {
-
                 choice = scanner.next().toLowerCase();
                 runnable = consoleMenuDispatcher.get(choice);
                 runnable.run();
@@ -80,7 +80,6 @@ public class ConsoleMenuUser {
         System.out.println("3: Search and book your cosy trip");
         System.out.println("4: Cancel booking");
         System.out.println("5: My trips");
-
         System.out.println("6: Leave application");
 
     }
@@ -101,6 +100,12 @@ public class ConsoleMenuUser {
 
         purchaser = (Purchaser) getNameAndSurnameUser(purchaser);
 
+        System.out.println(purchaser);
+
+        bookingController.getBookingByNameSurname(purchaser.getName(), purchaser.getSurname());
+
+
+
 //        Method to get all trips
 
 
@@ -116,31 +121,29 @@ public class ConsoleMenuUser {
 
  OUTER :    while (isContinue) {
 
-            System.out.println("Do you want to cancel booking please enter booking ID\n" +
+            System.out.println("Do you want to cancel booking!\nPlease enter booking ID!\n" +
                     "If you want to leave this mode please enter '0'!");
 
              boolean isNotCorrect = true;
              do {
                  if (scanner.hasNextInt()) {
                      temp = scanner.nextInt();
+                     System.out.println(temp);
                      if (temp == 0) {
                          break OUTER;
                      } else {
-                         bookingID = temp;
-                         isNotCorrect = false;
+                         if (bookingController.deleteBookingById(temp)) {
+                             System.out.println("Your booking " + temp + " deleted successfully");
+                             isNotCorrect = false;
+                         } else System.out.println("Wrong input!\nPlease try again!");
                      }
 
-                 } else System.out.println("Wrong input!\nPlease try again!");
+                 }
              } while (isNotCorrect);
-
 
              // method to delete Booking
 
-
         }
-
-
-
 
     }
 
@@ -150,96 +153,16 @@ public class ConsoleMenuUser {
     private void searchAndBooking() {
         boolean isContinue = true;
         Destinations destination;
-        LocalDate dateDeparture = null;
-        int day = 0;
-        int month = 0;
-        int reserveNum;
-        List <Trip> availableTrips = new ArrayList<>();
+        LocalDate dateDeparture;
+        int reserveNum = 0;
+        List <Trip> availableTrips;
         Trip bookingTrip;
+        destination = getDestinationFromUser();
+        System.out.println("You have chosen destination " + destination);
+        dateDeparture = getDateDepartureFromUser();
+        System.out.println("You have chosen departure date " + dateDeparture);
 
-
-
-   OUTER:   while (isContinue) {
-
-            System.out.println("Please enter destination!\n" +
-                    "If you want to leave this mode please enter exit");
-            String destinationName = scanner.next().trim().toUpperCase();
-            String choice = destinationName.toLowerCase();
-
-            switch (choice)  {
-
-                case "exit" : {
-                    break OUTER;
-                }
-
-            default: {
-                    for (Trip trip : tripController.downLoadAllTrips()) {
-                        if (trip.getDestination().equals(Destinations.valueOf(destinationName))) {
-                            destination = Destinations.valueOf(destinationName);
-                            break OUTER;
-                        }
-                    } System.out.println("Wrong input! Please try again!");
-                }
-            }
-
-        }
-
-    OUTER:   while (isContinue) {
-
-        System.out.println("If you want to continue enter any symbol!\n" +
-                "If you want to leave this mode please enter 'exit'!");
-
-        String date = scanner.next().trim();
-        String choice = date.toLowerCase();
-
-        switch (choice) {
-
-            case "exit": {
-                break OUTER;
-            }
-
-            default: {
-
-                boolean isNotCorrect = true;
-                do {
-                    System.out.println("Please enter day");
-                    if (scanner.hasNextInt(32)) {
-                        day = scanner.nextInt();
-                        isNotCorrect = false;
-                    } else System.out.println("Wrong input!\nPlease try again!");
-                } while (isNotCorrect);
-
-                isNotCorrect = true;
-
-                do {
-                    System.out.println("Please enter month");
-                    if (scanner.hasNextInt(13)) {
-                        month = scanner.nextInt();
-                        isNotCorrect = false;
-                    } else System.out.println("Wrong input!\nPlease try again!");
-                } while (isNotCorrect);
-
-             try {
-                 dateDeparture = LocalDate.of (Year.now().getValue(),month,day);
-             } catch (DateTimeException e) {
-                 System.out.println("Wrong input!\nPlease try again!");
-                 break;
-             }
-
-             if (dateDeparture.isBefore(LocalDate.now().plusMonths(TIME_BOOKING_IN_ADVANCE))
-                     && dateDeparture.isAfter(LocalDate.now().minusDays(1))) {
-                 break OUTER;
-
-             } else System.out.println("Your date is out of time for reservation ");
-
-             }
-
-
-        }
-
-    }
-
-      while (isContinue) {
+        while (isContinue) {
           System.out.println("Please enter the number places you need for booking");
           if (scanner.hasNextInt()) {
               reserveNum = scanner.nextInt();
@@ -250,8 +173,11 @@ public class ConsoleMenuUser {
           }
       }
 
-//       availableTrips = bookingController.getAvailableTrips (destination, dateDeparture,reserveNum);
-         bookingTrip = chooseTrip(availableTrips);
+
+
+           availableTrips = bookingController.getAvailableTrips (destination, dateDeparture,reserveNum); // get list of available trips for the requested information
+
+           bookingTrip = chooseTrip(availableTrips);
 
          if (bookingTrip != null) {
              makeBooking(bookingTrip, dateDeparture);
@@ -259,12 +185,97 @@ public class ConsoleMenuUser {
 
 
     }
-         /*Method get list of available trips and return chosen by user trip
-          according to the sequential number for continue to book places on this trip*/
+
+    private LocalDate getDateDepartureFromUser() {
+        LocalDate dateDeparture;
+        int day;
+        int month = 0;
+        while (true) {
+
+            System.out.println("Please your date departure");
+                    boolean isNotCorrect = true;
+
+            do {
+                System.out.println("Please enter month");
+                if (scanner.hasNextInt()) {
+                    month = scanner.nextInt();
+                    if (month <= 12 && month > 0) {
+                        isNotCorrect = false;
+                    } else  System.out.println("The month is out of bound");
+                } else System.out.println("Wrong input!\nPlease try again!");
+            } while (isNotCorrect);
+
+            isNotCorrect = true;
+
+            do {
+                System.out.println("Please enter day");
+                day = scanner.nextInt();
+
+                    switch (month) {
+                        case 1, 3, 5, 7, 8, 10, 12 -> {
+                            if (day <= 31 && day > 0) {
+                                isNotCorrect = false;
+                            } else System.out.println("The day is out of bound");
+                        }
+                        case 2 -> {
+                            if (day <= 28 && day > 0) {
+                                isNotCorrect = false;
+                            } else System.out.println("The day is out of bound");
+                        }
+                        default -> {
+                            if (day <= 30 && day > 0) {
+                                isNotCorrect = false;
+                            } else System.out.println("The day is out of bound");
+                        }
+                    }
+
+            } while (isNotCorrect);
+
+            try {
+                dateDeparture = LocalDate.of (Year.now().getValue(),month,day);
+            } catch (DateTimeException e) {
+                System.out.println("Wrong input!\nPlease try again!");
+                continue;
+            }
+
+            if (dateDeparture.isBefore(LocalDate.now().plusMonths(TIME_BOOKING_IN_ADVANCE))
+                    && dateDeparture.isAfter(LocalDate.now().minusDays(1))) {
+                return dateDeparture;
+
+            } else System.out.println("Your date is out of time for reservation ");
+        }
+
+    }
+
+    private Destinations getDestinationFromUser() {
+        Destinations destination;
+        while (true) {
+
+            System.out.println("Please enter destination!");
+            String destinationName = scanner.next().trim().toUpperCase();
+                    for (Trip trip : tripController.downLoadAllTrips()) {
+                        try {
+                            if (trip.getDestination().equals(Destinations.valueOf(destinationName))) {
+                                destination = Destinations.valueOf(destinationName);
+                                return destination;
+                            }
+                        } catch (IllegalArgumentException e) {
+                            break;
+                        }
+                    } System.out.println("Wrong input! Please try again!");
+                }
+
+
+        }
+
+
+    /*Method get list of available trips and return chosen by user trip
+     according to the sequential number for continue to book places on this trip*/
          private Trip chooseTrip(List <Trip> tripList) {
               Map <Integer, Trip> availableTripsMap = new HashMap<>();
+              Trip chosenTrip;
               int count = 1;
-              int choice = 0;
+              int choice;
              for (Trip trip:
                   tripList) {
                  availableTripsMap.put (count++, trip);
@@ -272,27 +283,22 @@ public class ConsoleMenuUser {
 
              for (Map.Entry <Integer, Trip> trip:
                   availableTripsMap.entrySet()) {
-                  System.out.printf ("%d - %s", trip.getKey(), trip.getValue().prettyFormat());
+                  System.out.printf ("%d: %s\n", trip.getKey(), trip.getValue().prettyFormat());
              }
 
-             System.out.println("Please chose number of trip\n" +
-                     "If you want to exit enter '0");
 
              boolean isNotCorrect = true;
              do {
-                 System.out.println("Please chose number of trip\n" +
-                         "If you want to exit enter '0");
+                 System.out.println("Please chose number of trip\n");
                  if (scanner.hasNextInt(tripList.size() + 1)) {
                      choice = scanner.nextInt();
-                     if (choice == 0) {
-                         break;
-                     } else {
-                         System.out.println("Make a reservation");
-                         isNotCorrect = false;
-                         return availableTripsMap.get(choice);
-                        }
+                     chosenTrip = availableTripsMap.get(choice);
+                     isNotCorrect = false;
+                     System.out.println("You have chosen trip: " + chosenTrip.prettyFormat());
+                     return chosenTrip;
                  } else System.out.println("Wrong input!\nPlease try again!");
              } while (isNotCorrect);
+             scanner.close();
              return null;
          }
 
@@ -304,6 +310,7 @@ public class ConsoleMenuUser {
              Passenger passengerName = new Passenger();
              boolean isContinue = true;
              int reserveNum = 0;
+             int bookingId;
 
 
          OUTER:   while (isContinue) {
@@ -312,55 +319,50 @@ public class ConsoleMenuUser {
                      "If you want to leave this mode please enter 'exit'!");
 
              String choice = scanner.next().trim().toLowerCase();
+             if ("exit".equals(choice)) {
+                 break;
+             } else {
+                 System.out.println("Please enter your name and surname");
 
-             switch (choice) {
+                 purchaser = (Purchaser) getNameAndSurnameUser(purchaser);
 
-                 case "exit": {
-                     break OUTER;
+                 isContinue = true;
+                 while (isContinue) {
+                     System.out.println("Please enter the number places you need for booking");
+                     if (scanner.hasNextInt()) {
+                         reserveNum = scanner.nextInt();
+                         if (reserveNum <= MAX_RESERVE_PLACES_PER_TRIP) {                      // if there is possibility to get available places by Trip and Date
+                             isContinue = false;
+                         } else System.out.println("Wrong input!\n" +
+                                 "Please enter number no more than " + MAX_RESERVE_PLACES_PER_TRIP);
+                     }
                  }
 
-                 default: {
+                 System.out.println("Please enter passengers' name and surname, " +
+                         "including your credentials if you are passenger\n ");
 
-                     System.out.println("Please enter your name and surname");
-
-                     purchaser = (Purchaser) getNameAndSurnameUser(purchaser);
-
-                     isContinue = true;
-                     while (isContinue) {
-                         System.out.println("Please enter the number places you need for booking");
-                         if (scanner.hasNextInt()) {
-                             reserveNum = scanner.nextInt();
-                             if (reserveNum <= MAX_RESERVE_PLACES_PER_TRIP) {                      // if there is possibility to get available places by Trip and Date
-                                 isContinue = false;
-                             } else System.out.println("Wrong input!\n" +
-                                     "Please enter number no more than " + MAX_RESERVE_PLACES_PER_TRIP);
-                         }
-                     }
-
-                     System.out.println("Please enter passengers' name and surname, " +
-                             "including your credentials if you are passenger\n ");
-
-                     while (reserveNum > 0) {
-                         passengerList.add((Passenger) getNameAndSurnameUser(passengerName));
-                     }
-
-                     System.out.println("Do you want to finalize your booking?\n" +
-                             "Enter yes or no");
-
-                     choice = scanner.next();
-
-                     if (choice == "yes") {
-                         System.out.println("Create booking");   // transfer data to Booking.Controller
-                         System.out.println("Your booking is successful\n" +
-                                 "Thank you being with AviaDreamer!");
-                     } else {
-                         System.out.println("You cancelled process of booking! \n" +
-                                 "Thank you being with AviaDreamer!");
-                     }
-
+                 while (reserveNum > 0) {
+                     passengerList.add((Passenger) getNameAndSurnameUser(passengerName));
+                     reserveNum--;
                  }
 
+                 System.out.println("Do you want to finalize your booking?\n" +
+                         "Enter yes or no");
 
+                 choice = scanner.next().trim().toLowerCase();
+
+                 if (choice.equals("yes")) {
+                     System.out.println("Create booking");
+                     // transfer data to Booking.Controller
+                     bookingId = bookingController.createNewBooking(purchaser, bookingTrip, passengerList, dateDeparture);
+                     System.out.println("Your booked \n" + bookingTrip.prettyFormat() +
+                             " on " + dateDeparture +
+                             " booking ID: " + bookingId +
+                             "\nThank you being with AviaDreamer!");
+                 } else {
+                     System.out.println("You cancelled process of booking! \n" +
+                             "Thank you being with AviaDreamer!");
+                 }
              }
 
          }
@@ -398,31 +400,23 @@ public class ConsoleMenuUser {
          }
 
     private void showInfoTrip() {
-        boolean isContinue = true;
 
- OUTER:     while (isContinue) {
+ OUTER:     while (true) {
             System.out.println("Please enter trip ID you have chosen!\n" +
                     "If you want to leave this mode please enter exit");
             String tripId = scanner.next().trim();
-            String choice = tripId.toLowerCase();
+            if ("exit".equalsIgnoreCase(tripId)) {
+                 break;
+             } else {
+                 for (Trip trip : tripController.downLoadAllTrips()) {
+                     if (trip.getTripId().equals(tripId)) {
+                         showTripBooking(bookingController.getTripInfoById(tripId));
+                         break OUTER;
+                     }
+                 } System.out.println("Wrong input! Please try again!");
 
-            switch (choice)  {
-
-                case "exit" : {
-                    break OUTER;
-                }
-
-                default: {
-                   for (Trip trip : tripController.downLoadAllTrips()) {
-                        if (trip.getTripId().equals(tripId)) {
-                            System.out.println("Get trip by id");
-                            break OUTER;
-                        }
-                    } System.out.println("Wrong input! Please try again!");
-                }
+             }
               }
-
-      }
 
     }
 
@@ -454,8 +448,17 @@ public class ConsoleMenuUser {
     /*Method showTrip with actualized date*/
     private void showActualized24HTrip (Trip trip) {
         String departureTime = dateTimeFormatter.format(actualize(trip.getTimeTrip()));
-        System.out.println(String.format(" %5s  %s - %-10s  %s",
-                trip.getTripId(), trip.getDeparture(), trip.getDestination(), departureTime));
+        System.out.printf(" %5s  %s - %-10s  %s%n",
+                trip.getTripId(), trip.getDeparture(), trip.getDestination(), departureTime);
     }
+
+    private void showTripBooking (TripBooking tripBooking) {
+        Trip trip = tripBooking.getTrip();
+        String date = dateTimeFormatter.format(tripBooking.getDate());
+        System.out.printf("%s  %s - %-10s  available seats: %d\n%n",
+                date, trip.getDeparture(), trip.getDestination(), tripBooking.getFreePlace());
+    }
+
+
 }
 
