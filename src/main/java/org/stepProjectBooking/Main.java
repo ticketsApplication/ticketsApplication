@@ -2,14 +2,10 @@ package org.stepProjectBooking;
 
 import org.stepProjectBooking.ticketsApplication.ConsoleMenuUser;
 import org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingController;
-import org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingService;
 import org.stepProjectBooking.ticketsApplication.DAO.tripDAO.TripController;
 import org.stepProjectBooking.ticketsApplication.trips.*;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Main {
@@ -22,8 +18,6 @@ public class Main {
         System.out.println(bookingController.getAvailableTrips(Destinations.WASHINGTON,
                 LocalDate.of(2022,12,25),5));
         System.out.println("________________");
-//        System.out.println(bookingController.getBookingByNameSurname("Mike", "Murray"));
-//        System.out.println("________________");
         System.out.println(bookingController.getTripInfoById("ADM404"));
         System.out.println("________________");
         System.out.println(bookingController.getAvailableTrips(Destinations.PARIS,
