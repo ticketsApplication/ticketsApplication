@@ -22,8 +22,8 @@ public class Main {
         System.out.println(bookingController.getAvailableTrips(Destinations.WASHINGTON,
                 LocalDate.of(2022,12,25),5));
         System.out.println("________________");
-        System.out.println(bookingController.getBookingByNameSurname("Mike", "Murray"));
-        System.out.println("________________");
+//        System.out.println(bookingController.getBookingByNameSurname("Mike", "Murray"));
+//        System.out.println("________________");
         System.out.println(bookingController.getTripInfoById("ADM404"));
         System.out.println("________________");
         System.out.println(bookingController.getAvailableTrips(Destinations.PARIS,

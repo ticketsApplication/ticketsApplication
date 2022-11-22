@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.stepProjectBooking.ticketsApplication.trips.TripBookingList;
+import org.stepProjectBooking.ticketsApplication.user.User;
 
 import java.io.IOException;
 
@@ -25,8 +26,9 @@ public class BookingController {
         return bookingService.deleteBookingById(id);
     }
 
-    public List<Booking> getBookingByNameSurname(String name, String surname) {
-        return bookingService.getBookingByNameSurname(name, surname);
+    public List<Booking> getBookingByNameSurname(User user) {
+        User User;
+        return bookingService.getBookingByNameSurname(user);
     }
 
     public TripBooking getTripInfoById(String tripId) {
