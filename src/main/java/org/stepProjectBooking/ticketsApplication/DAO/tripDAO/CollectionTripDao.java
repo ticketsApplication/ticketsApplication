@@ -6,18 +6,24 @@ import org.stepProjectBooking.ticketsApplication.trips.TripList;
 import java.beans.*;
 import java.io.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionTripDao implements TripDao{
-    private final List<Trip> tripList;
+    private List<Trip> tripList;
     private static final String TRIP_LIST_FILE_NAME="trip_list.xml";
-
-    private final TripList tripListCollection = new TripList();
+    private TripList tripListCollection = new TripList();
     public CollectionTripDao (){
-        this.tripList = downLoadAllTrips().getTrips();
+        this.tripList = downLoadAllTripsFromExternalSource().getTrips();
     }
-    private TripList downLoadAllTrips () {
+    @Override
+    public List<Trip> getAllTrips() {
+        return tripList;
+    }
+    @Override
+    public void saveAllTrips(List<Trip> tripList) {
+        this.tripList = tripList;
+    }
+    private TripList downLoadAllTripsFromExternalSource() {
 
         XMLDecoder decoder=null;
         try {
@@ -33,18 +39,13 @@ public class CollectionTripDao implements TripDao{
 
     }
 
-    @Override
-    public List<Trip> getAllTrips() {
-        return tripList;
-    }
+
     //Method upload all trips wrapped into entity TripList that contains ArrayList of all trips
 
     @Override
-    public void uploadAllTrips(List <Trip> tripList) {
-        TripList tripListCollection = new TripList();
+    public void uploadAllTripsFromExternalSource(List <Trip> tripList) {
         tripListCollection.setTrips(tripList);
         XMLEncoder xmlEncoder = null;
-
         try{
             xmlEncoder=new XMLEncoder(new BufferedOutputStream(new FileOutputStream(TRIP_LIST_FILE_NAME)));
             xmlEncoder.setPersistenceDelegate(LocalTime.class,

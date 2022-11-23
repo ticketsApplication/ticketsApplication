@@ -102,7 +102,7 @@ public class ConsoleMenuUser {
 
         System.out.println(purchaser);
 
-        bookingController.getBookingByNameSurname(purchaser.getName(), purchaser.getSurname());
+        bookingController.getBookingByNameSurname(purchaser);
 
 
 
@@ -411,6 +411,7 @@ public class ConsoleMenuUser {
                  for (Trip trip : tripController.downLoadAllTrips()) {
                      if (trip.getTripId().equals(tripId)) {
                          showTripBooking(bookingController.getTripInfoById(tripId));
+                         System.out.println(bookingController.getTripInfoById(tripId));
                          break OUTER;
                      }
                  } System.out.println("Wrong input! Please try again!");
@@ -455,7 +456,7 @@ public class ConsoleMenuUser {
     private void showTripBooking (TripBooking tripBooking) {
         Trip trip = tripBooking.getTrip();
         String date = dateTimeFormatter.format(tripBooking.getDate());
-        System.out.printf("%s  %s - %-10s  available seats: %d\n%n",
+        System.out.printf("%s  %s - %-10s  available seats: %d\n",
                 date, trip.getDeparture(), trip.getDestination(), tripBooking.getFreePlace());
     }
 

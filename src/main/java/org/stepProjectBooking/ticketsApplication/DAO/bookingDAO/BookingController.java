@@ -6,6 +6,7 @@ import org.stepProjectBooking.ticketsApplication.trips.Trip;
 import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
 import org.stepProjectBooking.ticketsApplication.user.Passenger;
 import org.stepProjectBooking.ticketsApplication.user.Purchaser;
+import org.stepProjectBooking.ticketsApplication.user.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,8 +24,8 @@ public class BookingController {
         return bookingService.deleteBookingById(id);
     }
 
-    public List<Booking> getBookingByNameSurname(String name, String surname) {
-        return bookingService.getBookingByNameSurname(name, surname);
+    public List<Booking> getBookingByNameSurname(User user) {
+        return bookingService.getBookingByNameSurname(user);
     }
 
     public TripBooking getTripInfoById(String tripId) {

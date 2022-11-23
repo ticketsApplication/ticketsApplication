@@ -100,7 +100,7 @@ public class TripBooking implements Serializable {
                 ", bookingList=" + bookingList +
                 ", freePlace=" + getFreePlace() +
                 //", isActive=" + isActive +
-                //", date=" + date +
+                ", date=" + date +
                 '}';
     }
 }

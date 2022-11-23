@@ -1,8 +1,6 @@
 package org.stepProjectBooking.ticketsApplication.DAO.tripDAO;
 
-import org.stepProjectBooking.ticketsApplication.trips.Destinations;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
-import org.stepProjectBooking.ticketsApplication.trips.TripList;
 
 import java.util.List;
 
@@ -13,8 +11,10 @@ public interface TripDao {
      */
     public List<Trip> getAllTrips();
 
+    public void saveAllTrips (List<Trip> tripList);
 
-    public void uploadAllTrips (List <Trip> tripList);
+
+    public void uploadAllTripsFromExternalSource(List <Trip> tripList);
 
 
 

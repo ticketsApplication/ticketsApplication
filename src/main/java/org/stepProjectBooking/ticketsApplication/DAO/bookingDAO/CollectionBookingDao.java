@@ -8,15 +8,31 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CollectionBookingDao {
+
+    private List<TripBooking> tripBookingList = new ArrayList<>();
+
+    public CollectionBookingDao(){
+        this.tripBookingList = getTripBookingListFromFile();
+    }
+    public List<TripBooking> getTripBookingList() {
+        return tripBookingList;
+    }
+    public void setTripBookingList(List<TripBooking> tripBookingList) {
+        this.tripBookingList = tripBookingList;
+    }
+
+    public void addTripBooking(TripBooking tripBooking){
+        this.tripBookingList.add(tripBooking);
+    }
+    public void removeTripBooking(TripBooking tripBooking){
+        this.tripBookingList.remove(tripBooking);
+    }
+
     TripController tripController = new TripController();
 
-
-
-
     private static final String TRIP_BOOKING_LIST_FILE_NAME = "trip_book_list.xml";
-    public List<TripBooking> getTripBookingList(){
+    public List<TripBooking> getTripBookingListFromFile(){
         List<TripBooking> tripBookingList = new ArrayList<>();
         boolean count = true;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(TRIP_BOOKING_LIST_FILE_NAME))) {
@@ -41,7 +57,7 @@ public class CollectionBookingDao {
         //return dataBase.getTripBookingList();
     }
 
-    public void setTripBookingList(List<TripBooking> tripBookingList){
+    public void setTripBookingListToFile(List<TripBooking> tripBookingList){
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TRIP_BOOKING_LIST_FILE_NAME))) {
 
             for (TripBooking tripBooking :tripBookingList) {
