@@ -5,6 +5,7 @@ import org.stepProjectBooking.ticketsApplication.trips.Destinations;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
 import org.stepProjectBooking.ticketsApplication.user.Passenger;
 import org.stepProjectBooking.ticketsApplication.user.Purchaser;
+import org.stepProjectBooking.ticketsApplication.user.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -70,7 +71,7 @@ public class TestTicketsApplication {
                 ", Passenger{name='Mike', surname='Murray'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
                 ", Passenger{name='Liza', surname='Trust'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
                 ", Passenger{name='Indy', surname='Chart'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                "]}]", bookingController.getBookingByNameSurname("Mike", "Murray").toString());
+                "]}]", bookingController.getBookingByNameSurname(new Passenger("Mike", "Murray")));
     }
 
     @Test

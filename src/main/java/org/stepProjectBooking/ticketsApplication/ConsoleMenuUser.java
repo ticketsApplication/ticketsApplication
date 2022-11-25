@@ -4,6 +4,7 @@ package org.stepProjectBooking.ticketsApplication;
 import org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingController;
 import org.stepProjectBooking.ticketsApplication.DAO.tripDAO.TripController;
 
+import org.stepProjectBooking.ticketsApplication.trips.Booking;
 import org.stepProjectBooking.ticketsApplication.trips.Destinations;
 import org.stepProjectBooking.ticketsApplication.trips.Trip;
 import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
@@ -24,7 +25,7 @@ public class ConsoleMenuUser {
     private static final Map<String, Runnable> consoleMenuDispatcher = new HashMap<>();
     private static final int TIME_BEFORE_FLIGHT_BLOCK_BOOKING = 2;
 
-    private static final long TIME_BOOKING_IN_ADVANCE = 1;
+    private static final int TIME_BOOKING_IN_ADVANCE = 2;
 
     private static final int MAX_RESERVE_PLACES_PER_TRIP = 100;
     Runnable runnable;
@@ -37,8 +38,6 @@ public class ConsoleMenuUser {
 
     BookingController bookingController = new BookingController();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM \uD83D\uDEEB HH:mm");
-
-
 
 
     public ConsoleMenuUser() {
@@ -88,6 +87,7 @@ public class ConsoleMenuUser {
     private void exitApplication() {
         System.out.println("Thank you for being with AviaDreamer!\n" +
                 "We would love to see you next time!");
+        bookingController.saveTripBookingList(bookingController.getTripBookingList());
         System.exit (0);
 
     }
@@ -100,17 +100,11 @@ public class ConsoleMenuUser {
 
         purchaser = (Purchaser) getNameAndSurnameUser(purchaser);
 
-        System.out.println(purchaser);
-
-        bookingController.getBookingByNameSurname(purchaser);
-
-
-
-//        Method to get all trips
-
-
-
-
+        bookingController.getBookingByNameSurname(purchaser)
+                .stream()
+                .forEach(booking -> {
+                    showBooking(booking);
+                });
     }
 
     private void cancelBooking() {
@@ -119,6 +113,7 @@ public class ConsoleMenuUser {
         int bookingID;
         int temp;
 
+
  OUTER :    while (isContinue) {
 
             System.out.println("Do you want to cancel booking!\nPlease enter booking ID!\n" +
@@ -126,8 +121,9 @@ public class ConsoleMenuUser {
 
              boolean isNotCorrect = true;
              do {
-                 if (scanner.hasNextInt()) {
-                     temp = scanner.nextInt();
+                 String tempString;
+                 if (Pattern.matches("[0-9]*", tempString = scanner.next())) {
+                     temp = Integer.parseInt(tempString);
                      System.out.println(temp);
                      if (temp == 0) {
                          break OUTER;
@@ -155,29 +151,30 @@ public class ConsoleMenuUser {
         Destinations destination;
         LocalDate dateDeparture;
         int reserveNum = 0;
+        String reserveNumString;
         List <Trip> availableTrips;
-        Trip bookingTrip;
+        Trip bookingTrip = null;
         destination = getDestinationFromUser();
         System.out.println("You have chosen destination " + destination);
         dateDeparture = getDateDepartureFromUser();
         System.out.println("You have chosen departure date " + dateDeparture);
 
-        while (isContinue) {
-          System.out.println("Please enter the number places you need for booking");
-          if (scanner.hasNextInt()) {
-              reserveNum = scanner.nextInt();
-                      if (reserveNum <= MAX_RESERVE_PLACES_PER_TRIP) {
-                          isContinue = false;
-                      } else System.out.println("Wrong input!\n" +
-                              "Please enter number no more than " + MAX_RESERVE_PLACES_PER_TRIP);
-          }
-      }
-
-
+        do {
+            System.out.println("Please enter the number places you need for booking");
+            if (Pattern.matches("[0-9]*", reserveNumString = scanner.next())) {
+                reserveNum = Integer.parseInt(reserveNumString);
+                if (reserveNum <= MAX_RESERVE_PLACES_PER_TRIP) {                      // if there is possibility to get available places by Trip and Date
+                    isContinue = false;
+                } else System.out.println("Wrong input!\n" +
+                        "Please enter number no more than " + MAX_RESERVE_PLACES_PER_TRIP);
+            } else System.out.println("Wrong input!");
+        } while (isContinue);
 
            availableTrips = bookingController.getAvailableTrips (destination, dateDeparture,reserveNum); // get list of available trips for the requested information
-
-           bookingTrip = chooseTrip(availableTrips);
+           if (availableTrips.size() != 0) {
+               bookingTrip = chooseTrip(availableTrips);
+           } else System.out.println("No available trips to " + destination + " on " + dateDeparture);
+           
 
          if (bookingTrip != null) {
              makeBooking(bookingTrip, dateDeparture);
@@ -188,8 +185,10 @@ public class ConsoleMenuUser {
 
     private LocalDate getDateDepartureFromUser() {
         LocalDate dateDeparture;
-        int day;
+        int day = 0;
         int month = 0;
+        String monthString;
+        String dayString;
         while (true) {
 
             System.out.println("Please your date departure");
@@ -197,8 +196,8 @@ public class ConsoleMenuUser {
 
             do {
                 System.out.println("Please enter month");
-                if (scanner.hasNextInt()) {
-                    month = scanner.nextInt();
+                if (Pattern.matches("[0-9]*", monthString = scanner.next())) {
+                    month = Integer.parseInt(monthString);
                     if (month <= 12 && month > 0) {
                         isNotCorrect = false;
                     } else  System.out.println("The month is out of bound");
@@ -209,8 +208,9 @@ public class ConsoleMenuUser {
 
             do {
                 System.out.println("Please enter day");
-                day = scanner.nextInt();
-
+                
+                if (Pattern.matches("[0-9]*", dayString = scanner.next())) {
+                    day = Integer.parseInt(dayString);
                     switch (month) {
                         case 1, 3, 5, 7, 8, 10, 12 -> {
                             if (day <= 31 && day > 0) {
@@ -228,6 +228,11 @@ public class ConsoleMenuUser {
                             } else System.out.println("The day is out of bound");
                         }
                     }
+                    
+                    
+                } else System.out.println("Wrong input!\nPlease try again!");
+                
+               
 
             } while (isNotCorrect);
 
@@ -238,7 +243,7 @@ public class ConsoleMenuUser {
                 continue;
             }
 
-            if (dateDeparture.isBefore(LocalDate.now().plusMonths(TIME_BOOKING_IN_ADVANCE))
+            if (dateDeparture.isBefore(LocalDate.now().plusDays(TIME_BOOKING_IN_ADVANCE))
                     && dateDeparture.isAfter(LocalDate.now().minusDays(1))) {
                 return dateDeparture;
 
@@ -271,11 +276,12 @@ public class ConsoleMenuUser {
 
     /*Method get list of available trips and return chosen by user trip
      according to the sequential number for continue to book places on this trip*/
-         private Trip chooseTrip(List <Trip> tripList) {
+         private Trip    chooseTrip(List <Trip> tripList) {
               Map <Integer, Trip> availableTripsMap = new HashMap<>();
               Trip chosenTrip;
               int count = 1;
               int choice;
+              String choiceString;
              for (Trip trip:
                   tripList) {
                  availableTripsMap.put (count++, trip);
@@ -286,23 +292,24 @@ public class ConsoleMenuUser {
                   System.out.printf ("%d: %s\n", trip.getKey(), trip.getValue().prettyFormat());
              }
 
-
              boolean isNotCorrect = true;
              do {
                  System.out.println("Please chose number of trip\n");
-                 if (scanner.hasNextInt(tripList.size() + 1)) {
-                     choice = scanner.nextInt();
-                     chosenTrip = availableTripsMap.get(choice);
-                     isNotCorrect = false;
-                     System.out.println("You have chosen trip: " + chosenTrip.prettyFormat());
-                     return chosenTrip;
+
+                 if (Pattern.matches("[0-9]*", choiceString = scanner.next())) {
+                     choice = Integer.parseInt(choiceString);
+                     if (choice < tripList.size() + 1) {
+                         chosenTrip = availableTripsMap.get(choice);
+                         isNotCorrect = false;
+                         System.out.println("You have chosen trip: " + chosenTrip.prettyFormat());
+                         return chosenTrip;
+                     } else  System.out.println("Number is out of bound");
                  } else System.out.println("Wrong input!\nPlease try again!");
              } while (isNotCorrect);
-             scanner.close();
              return null;
          }
 
-         /*Method allows to book places entering Purchaser's name and surname,
+    /*Method allows to book places entering Purchaser's name and surname,
           and Passengers' name and surname*/
          private void makeBooking (Trip bookingTrip, LocalDate dateDeparture) {
              Purchaser purchaser = new Purchaser();
@@ -310,6 +317,7 @@ public class ConsoleMenuUser {
              Passenger passengerName = new Passenger();
              boolean isContinue = true;
              int reserveNum = 0;
+             String reserveNumString;
              int bookingId;
 
 
@@ -327,22 +335,23 @@ public class ConsoleMenuUser {
                  purchaser = (Purchaser) getNameAndSurnameUser(purchaser);
 
                  isContinue = true;
-                 while (isContinue) {
+                 do {
                      System.out.println("Please enter the number places you need for booking");
-                     if (scanner.hasNextInt()) {
-                         reserveNum = scanner.nextInt();
+                     if (Pattern.matches("[0-9]{3}", reserveNumString = scanner.next())) {
+                         reserveNum = Integer.parseInt(reserveNumString);
                          if (reserveNum <= MAX_RESERVE_PLACES_PER_TRIP) {                      // if there is possibility to get available places by Trip and Date
                              isContinue = false;
                          } else System.out.println("Wrong input!\n" +
                                  "Please enter number no more than " + MAX_RESERVE_PLACES_PER_TRIP);
-                     }
-                 }
+                     } else System.out.println("Wrong input!");
+                 } while (isContinue);
 
                  System.out.println("Please enter passengers' name and surname, " +
                          "including your credentials if you are passenger\n ");
 
                  while (reserveNum > 0) {
-                     passengerList.add((Passenger) getNameAndSurnameUser(passengerName));
+                     Passenger passenger = new Passenger();
+                     passengerList.add((Passenger) getNameAndSurnameUser(passenger));
                      reserveNum--;
                  }
 
@@ -404,14 +413,13 @@ public class ConsoleMenuUser {
  OUTER:     while (true) {
             System.out.println("Please enter trip ID you have chosen!\n" +
                     "If you want to leave this mode please enter exit");
-            String tripId = scanner.next().trim();
+            String tripId = scanner.next().toUpperCase().trim();
             if ("exit".equalsIgnoreCase(tripId)) {
                  break;
              } else {
                  for (Trip trip : tripController.downLoadAllTrips()) {
                      if (trip.getTripId().equals(tripId)) {
                          showTripBooking(bookingController.getTripInfoById(tripId));
-                         System.out.println(bookingController.getTripInfoById(tripId));
                          break OUTER;
                      }
                  } System.out.println("Wrong input! Please try again!");
@@ -421,27 +429,20 @@ public class ConsoleMenuUser {
 
     }
 
+    private void showTrips24Hours () {
 
+               tripController.downLoadAllTrips()
+                     .stream()
+                     .sorted((trip1, trip2) -> actualize(trip1.getTimeTrip()).compareTo(actualize(trip2.getTimeTrip())))
+                     .forEach(trip -> showActualized24HTrip(trip));
 
-    private void showTrips24Hours() {
-        //Use TreeMap to sort updated trips by DateTime
-        Map <LocalDateTime, Trip> sortedByDateTimeListTrip= new TreeMap<>();
-
-        for (Trip trip:
-                tripController.downLoadAllTrips()) {
-            sortedByDateTimeListTrip.put(actualize(trip.getTimeTrip()), trip);
-        }
-
-        for (Map.Entry<LocalDateTime, Trip> trip :
-            sortedByDateTimeListTrip.entrySet()) {
-            showActualized24HTrip(trip.getValue());
-        }
     }
 
     /*Method actualize departure time adding actual date within 24 hours + 2 hours (the time before user cannot buy tickets)*/
     private LocalDateTime actualize(LocalTime departureTime) {
 
-        if (departureTime.isAfter(LocalTime.now().plusHours(TIME_BEFORE_FLIGHT_BLOCK_BOOKING))) {
+        if (departureTime.
+                isAfter(LocalTime.now().plusHours(TIME_BEFORE_FLIGHT_BLOCK_BOOKING))) {
             return LocalDateTime.of(LocalDate.now(),departureTime);
         } else return LocalDateTime.of(LocalDate.now().plusDays(1), departureTime);
     }
@@ -449,17 +450,29 @@ public class ConsoleMenuUser {
     /*Method showTrip with actualized date*/
     private void showActualized24HTrip (Trip trip) {
         String departureTime = dateTimeFormatter.format(actualize(trip.getTimeTrip()));
-        System.out.printf(" %5s  %s - %-10s  %s%n",
-                trip.getTripId(), trip.getDeparture(), trip.getDestination(), departureTime);
+        System.out.printf("%5s  %s - %-10s  %s\n",
+                trip.getTripId(),
+                trip.getDeparture(),
+                trip.getDestination(),
+                departureTime);
     }
-
     private void showTripBooking (TripBooking tripBooking) {
-        Trip trip = tripBooking.getTrip();
-        String date = dateTimeFormatter.format(tripBooking.getDate());
-        System.out.printf("%s  %s - %-10s  available seats: %d\n",
-                date, trip.getDeparture(), trip.getDestination(), tripBooking.getFreePlace());
+
+        System.out.printf("%s %s %s - %-10s  available seats: %d\n",
+                tripBooking.getTrip().getTripId(),
+                dateTimeFormatter.format(tripBooking.getDate()),
+                tripBooking.getTrip().getDeparture(),
+                tripBooking.getTrip().getDestination(),
+                tripBooking.getFreePlace());
     }
 
-
+    private void showBooking (Booking booking) {
+        System.out.printf("%-10d  %-6s %s - %-10s  \n",
+                booking.getIdBooking(),
+                booking.getTrip().getTripId(),
+                booking.getTrip().getDeparture(),
+                booking.getTrip().getDestination(),
+                dateTimeFormatter.format (actualize(booking.getTrip().getTimeTrip())));
+    }
 }
 

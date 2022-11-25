@@ -6,15 +6,20 @@ import org.stepProjectBooking.ticketsApplication.trips.Trip;
 import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
 import org.stepProjectBooking.ticketsApplication.user.Passenger;
 import org.stepProjectBooking.ticketsApplication.user.Purchaser;
-import org.stepProjectBooking.ticketsApplication.user.User;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import org.stepProjectBooking.ticketsApplication.trips.TripBookingList;
+import org.stepProjectBooking.ticketsApplication.user.User;
+
 import java.io.IOException;
 
 public class BookingController {
-    private final org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingService bookingService = new org.stepProjectBooking.ticketsApplication.DAO.bookingDAO.BookingService();
+    public List<TripBooking> getTripBookingList(){
+        return bookingService.getTripBookingList();
+    }
+    private final BookingService bookingService = new BookingService();
 
     public Booking getBookingById(int id) {
         return bookingService.getBookingById(id);
@@ -25,6 +30,7 @@ public class BookingController {
     }
 
     public List<Booking> getBookingByNameSurname(User user) {
+        User User;
         return bookingService.getBookingByNameSurname(user);
     }
 
