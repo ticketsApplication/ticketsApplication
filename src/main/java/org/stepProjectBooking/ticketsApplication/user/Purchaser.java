@@ -21,6 +21,10 @@ public class Purchaser extends User{
         this.bookings = bookings;
     }
 
+    public Purchaser() {
+        super();
+    }
+
     @Override
     public String toString() {
         return "Purchaser{" +

@@ -7,6 +7,22 @@ public class Passenger extends User {
     private Trip tripId;
     int bookId;
 
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
+    public Trip getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(Trip tripId) {
+        this.tripId = tripId;
+    }
+
     public Passenger(String name, String surname) {
         super(name, surname);
     }
@@ -17,12 +33,16 @@ public class Passenger extends User {
         this.bookId = bookId;
     }
 
+    public Passenger() {
+        super();
+    }
+
     @Override
     public String toString() {
         return "Passenger{" +
                 "name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
-                "tripId='" + tripId + '\'' +
+                ", tripId='" + tripId.getTripId() + '\'' +
                 ", bookId=" + bookId +
                 '}'+"\n";
     }

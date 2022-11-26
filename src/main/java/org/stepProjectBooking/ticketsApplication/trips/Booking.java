@@ -19,9 +19,7 @@ public class Booking implements Serializable {
     private List<Passenger> passengerList;
 
     public Booking(int idBooking, Purchaser purchaser, Trip trip, int reserveNum, List<Passenger> passengerList) {
-
         this.idBooking = idBooking;
-
         this.purchaser = purchaser;
         this.trip = trip;
         this.reserveNum = reserveNum; //за что он отвечает?

@@ -16,40 +16,18 @@ public class TripController {
         this.tripService = new TripService();
     }
 
-    public List<Trip> getAllFamilies() {
-        return tripService.getAllTrips();
-    }
-
-    public List<String> displayAllTrips() {
-        return tripService.displayAllTrips();
-    }
-
-    public List<String> getTripsById(String id) {
-        return tripService.getTripsById(id);
-    }
-
-    public List<String> getTripsByDestinationNumPassenger(Destinations destinations, long date, int numPassenger) {
-        return tripService.getTripsByDestinationNumPassenger(destinations, numPassenger);
-    }
-
-    public void uploadTripList(TripList tripList) throws IOException {tripService.uploadTripList(tripList);}
-
     public List <Trip> downLoadAllTrips () {
-
-        return tripService.downLoadAllTrips().getTrips();
-    }
-
-
-    public void uploadTripBookingListObject(TripList tripList) {
-        tripService.uploadTripListObject(tripList);
-    }
-
-    public TripList downLoadAllTripsObject () {
-        return tripService.downLoadAllTripsObject();
-    }
-
-    public TripList getTripList() {
         return tripService.downLoadAllTrips();
     }
+
+    public void uploadAllTrips (List <Trip> trips) {
+
+        tripService.uploadAllTrips(trips);
+
+    }
+
+
+
+
 
 }
