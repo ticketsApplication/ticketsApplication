@@ -12,6 +12,10 @@ public abstract class User implements Serializable {
         this.surname = surname;
     }
 
+    public User() {
+
+    }
+
     public String getName() {
         return name;
     }
