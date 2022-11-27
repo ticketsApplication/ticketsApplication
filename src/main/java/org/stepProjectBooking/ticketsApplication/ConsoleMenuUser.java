@@ -23,16 +23,20 @@ public class ConsoleMenuUser {
 
     Scanner scanner =  new Scanner(System.in);
     private static final Map<String, Runnable> consoleMenuDispatcher = new HashMap<>();
+
     private static final int TIME_BEFORE_FLIGHT_BLOCK_BOOKING = 0;
+
 
     private static final int TIME_BOOKING_IN_ADVANCE = 2;
 
     private static final int MAX_RESERVE_PLACES_PER_TRIP = 100;
     Runnable runnable;
     final String regexName = "^[A-Z][a-zA-z ]{1,29}$"; // regular expression for name and surname
+
     TripController tripController = new TripController();
     BookingController bookingController = new BookingController();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM \uD83D\uDEEB HH:mm");
+
 
     public ConsoleMenuUser() {
         consoleMenuDispatcher.put("1", this :: showTrips24Hours);
@@ -93,12 +97,15 @@ public class ConsoleMenuUser {
 
         purchaser = (Purchaser) getNameAndSurnameUser(purchaser);
 
+
         for (Booking booking : bookingController.getBookingByNameSurname(purchaser)) {
             showBooking(booking);
         }
+
     }
 
     private void cancelBooking() {
+
 
             int temp;
  OUTER :    while (true) {
@@ -108,10 +115,13 @@ public class ConsoleMenuUser {
                     Please enter booking ID!
                     If you want to leave this mode please enter '0'!""");
 
+
              boolean isNotCorrect = true;
              do {
                  String tempString;
+
                  if (Pattern.matches("^\\d{5,11}$", tempString = scanner.next())) {
+
                      temp = Integer.parseInt(tempString);
                      System.out.println(temp);
                      if (temp == 0) {
@@ -150,7 +160,9 @@ public class ConsoleMenuUser {
 
         do {
             System.out.println("Please enter the number places you need for booking");
+
             if (Pattern.matches("^([1-9](\\d)?)|([0-9]\\d)$", reserveNumString = scanner.next())) {
+
                 reserveNum = Integer.parseInt(reserveNumString);
                 if (reserveNum <= MAX_RESERVE_PLACES_PER_TRIP) {                      // if there is possibility to get available places by Trip and Date
                     isContinue = false;
@@ -185,7 +197,9 @@ public class ConsoleMenuUser {
 
             do {
                 System.out.println("Please enter month");
+
                 if (Pattern.matches("^([1-9](\\d)?)|([0-9]\\d)$", monthString = scanner.next())) {
+
                     month = Integer.parseInt(monthString);
                     if (month <= 12 && month > 0) {
                         isNotCorrect = false;
@@ -198,7 +212,9 @@ public class ConsoleMenuUser {
             do {
                 System.out.println("Please enter day");
                 
+
                 if (Pattern.matches("^([1-9](\\d)?)|([0-9]\\d)$", dayString = scanner.next())) {
+
                     day = Integer.parseInt(dayString);
                     switch (month) {
                         case 1, 3, 5, 7, 8, 10, 12 -> {
@@ -283,9 +299,11 @@ public class ConsoleMenuUser {
 
              boolean isNotCorrect = true;
              do {
+
                  System.out.println("Please chose number of trip");
 
                  if (Pattern.matches("^([1-9](\\d)?)|([0-9]\\d)$", choiceString = scanner.next())) {
+
                      choice = Integer.parseInt(choiceString);
                      if (choice < tripList.size() + 1) {
                          chosenTrip = availableTripsMap.get(choice);
@@ -325,7 +343,9 @@ public class ConsoleMenuUser {
                  isContinue = true;
                  do {
                      System.out.println("Please enter the number places you need for booking");
+
                      if (Pattern.matches("^([1-9](\\d)?)|([0-9]\\d)$", reserveNumString = scanner.next())) {
+
                          reserveNum = Integer.parseInt(reserveNumString);
                          if (reserveNum <= MAX_RESERVE_PLACES_PER_TRIP) {                      // if there is possibility to get available places by Trip and Date
                              isContinue = false;
@@ -335,7 +355,9 @@ public class ConsoleMenuUser {
                  } while (isContinue);
 
                  System.out.println("Please enter passengers' name and surname, " +
+
                          "including your credentials if you are passenger! ");
+
 
                  while (reserveNum > 0) {
                      Passenger passenger = new Passenger();
@@ -423,7 +445,9 @@ public class ConsoleMenuUser {
                tripController.downLoadAllTrips()
                      .stream()
                      .sorted((trip1, trip2) -> actualize(trip1.getTimeTrip()).compareTo(actualize(trip2.getTimeTrip())))
+
                      .forEach(this::showActualized24HTrip);
+
 
     }
 
@@ -456,7 +480,9 @@ public class ConsoleMenuUser {
     }
 
     private void showBooking (Booking booking) {
+
         System.out.printf("%-10d  %-6s %s - %-10s %s\n",
+
                 booking.getIdBooking(),
                 booking.getTrip().getTripId(),
                 booking.getTrip().getDeparture(),
