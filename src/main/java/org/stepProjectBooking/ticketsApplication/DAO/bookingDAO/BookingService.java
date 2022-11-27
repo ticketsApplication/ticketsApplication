@@ -18,7 +18,6 @@ public class BookingService implements BookingDao {
     private final CollectionBookingDao collectionBookingDao = new CollectionBookingDao();
 
     public Booking getBookingById(int id) {
-
         List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
         for (TripBooking tripBooking : tripBookingList) {
             for (Booking booking : tripBooking.getBookingList()) {
@@ -65,7 +64,6 @@ public class BookingService implements BookingDao {
     }
 
     public TripBooking getTripBookingByTripIdData(String tripId, LocalDate date) {
-
         List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
         for (TripBooking tripBooking : tripBookingList) {
             if (tripBooking.getTrip().getTripId().equals(tripId) &&
@@ -78,7 +76,6 @@ public class BookingService implements BookingDao {
     }
 
     public TripBooking getTripInfoById(String tripId) {
-
         Trip trip = collectionBookingDao.getTripById(tripId);
         LocalDate date = LocalDate.now();
         LocalDateTime f = trip.getTimeTrip().atDate(LocalDate.now());
@@ -140,11 +137,9 @@ public class BookingService implements BookingDao {
     }
 
     public void saveTripBookingList(List<TripBooking> tripBookingList){
-
         collectionBookingDao.setTripBookingListToFile(tripBookingList);
     }
     public List<TripBooking> getTripBookingList(){
-
         return collectionBookingDao.getTripBookingList();
     }
 }

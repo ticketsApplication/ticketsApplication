@@ -21,7 +21,6 @@ public class CollectionBookingDao {
     private List<TripBooking> tripBookingList = new ArrayList<>();
 
     public CollectionBookingDao() {
-
         List<TripBooking> baseTripBookingList = getTripBookingListFromFile();
         List<TripBooking> tripBookingList = new ArrayList<>();
         List<Trip> tripList = getTripList();
@@ -58,22 +57,18 @@ public class CollectionBookingDao {
     }
 
     public List<TripBooking> getTripBookingList() {
-
         return tripBookingList;
     }
 
     public void setTripBookingList(List<TripBooking> tripBookingList) {
-
         this.tripBookingList = tripBookingList;
     }
 
     public void addTripBooking(TripBooking tripBooking) {
-
         this.tripBookingList.add(tripBooking);
     }
 
     public void removeTripBooking(TripBooking tripBooking) {
-
         this.tripBookingList.remove(tripBooking);
     }
 
@@ -88,7 +83,6 @@ public class CollectionBookingDao {
     }
 
     public List<TripBooking> getTripBookingListFromFile() {
-
         List<TripBooking> tripBookingList = new ArrayList<>();
         boolean count = true;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(TRIP_BOOKING_LIST_FILE_NAME))) {
@@ -113,7 +107,6 @@ public class CollectionBookingDao {
     }
 
     public void setTripBookingListToFile(List<TripBooking> tripBookingList) {
-
         List<TripBooking> tempTripBookingList = new ArrayList<>();
         List<TripBooking> baseTripBookingList = sortByDate(getTripBookingListFromFile());
 
