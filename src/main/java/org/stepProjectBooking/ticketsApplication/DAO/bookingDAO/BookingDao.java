@@ -1,29 +1,32 @@
 package org.stepProjectBooking.ticketsApplication.DAO.bookingDAO;
 
 import org.stepProjectBooking.ticketsApplication.trips.Booking;
+import org.stepProjectBooking.ticketsApplication.trips.Destinations;
+import org.stepProjectBooking.ticketsApplication.trips.Trip;
+import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
+import org.stepProjectBooking.ticketsApplication.user.Passenger;
+import org.stepProjectBooking.ticketsApplication.user.Purchaser;
+import org.stepProjectBooking.ticketsApplication.user.User;
 
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 public interface BookingDao {
 
-    /**Возвращает коллекцию со всеми бронями */
-    List<Booking> getAllBookings();
-
-    /**Возвращает бронь по id*/
     Booking getBookingById(int id);
 
-    /**Сохраняет бронь*/
-    void saveBooking (Booking booking);
+    boolean deleteBookingById(int id);
 
-    /**Удаляет бронь по id*/
-    void deleteBookingById(int id);
+    List<Booking> getBookingByUser(User user);
 
+    TripBooking getTripInfoById(String tripId);
 
+    List<Trip> getAvailableTrips(Destinations destination, LocalDate data, int passengersNum);
 
+    int createNewBooking(Purchaser purchaser, Trip trip, List<Passenger> passengerList, LocalDate date);
 
+    void saveTripBookingList(List<TripBooking> tripBookingList) throws FileNotFoundException;
 
-
-
-
+    List<TripBooking> getTripBookingList();
 }

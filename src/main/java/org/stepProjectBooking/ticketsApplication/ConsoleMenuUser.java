@@ -337,7 +337,7 @@ public class ConsoleMenuUser {
                  isContinue = true;
                  do {
                      System.out.println("Please enter the number places you need for booking");
-                     if (Pattern.matches("[0-9]{3}", reserveNumString = scanner.next())) {
+                     if (Pattern.matches("[0-9]*", reserveNumString = scanner.next())) {
                          reserveNum = Integer.parseInt(reserveNumString);
                          if (reserveNum <= MAX_RESERVE_PLACES_PER_TRIP) {                      // if there is possibility to get available places by Trip and Date
                              isContinue = false;

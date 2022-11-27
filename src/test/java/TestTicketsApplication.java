@@ -12,8 +12,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.*;
 
 public class TestTicketsApplication {
 
@@ -21,79 +20,39 @@ public class TestTicketsApplication {
 
     @Test
     public void getBookingById() {
-        assertEquals("Booking{\n" +
-                "idBooking=123456, \n" +
-                "purchaser=Purchaser{userId=0name='Bill', surname='Smith', email='null', bookings=null}, \n" +
-                "trip=Trip{tripId='KP475', timeTrip=18:50, departure=KYIV, destination=PARIS, capacity=25}, \n" +
-                "reserveNum=124523, \n" +
-                "passengerList=[Passenger{name='Bill', surname='Soyer'tripId='Trip{tripId='KP475', timeTrip=11:05, " +
-                "departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Mike', surname='Murray'tripId='Trip{tripId='KP475', timeTrip=11:05, " +
-                "departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Liza', surname='Trust'tripId='Trip{tripId='KP475', timeTrip=11:05, " +
-                "departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Indy', surname='Chart'tripId='Trip{tripId='KP475', timeTrip=11:05, " +
-                "departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                "]}", bookingController.getBookingById(123456).toString());
+        assertEquals(null, bookingController.getBookingById(123456));
     }
 
     @Test
     public void deleteBookingById() {
-        assertTrue(bookingController.deleteBookingById(123456));
+        assertFalse(bookingController.deleteBookingById(123456));
     }
 
     @Test
     public void getBookingByNameSurname() {
         assertEquals("[Booking{\n" +
-                "idBooking=123456, \n" +
+                "idBooking=969502734, \n" +
                 "purchaser=Purchaser{userId=0name='Bill', surname='Smith', email='null', bookings=null}, \n" +
-                "trip=Trip{tripId='KP475', timeTrip=18:50, departure=KYIV, destination=PARIS, capacity=25}, \n" +
-                "reserveNum=124523, \n" +
-                "passengerList=[Passenger{name='Bill', surname='Soyer'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Mike', surname='Murray'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Liza', surname='Trust'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Indy', surname='Chart'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                "]}, Booking{\n" +
-                "idBooking=123459, \n" +
-                "purchaser=Purchaser{userId=0name='Bill', surname='Smith', email='null', bookings=null}, \n" +
-                "trip=Trip{tripId='KC579', timeTrip=21:30, departure=KYIV, destination=COLOGNE, capacity=10}, \n" +
-                "reserveNum=124557, \n" +
-                "passengerList=[Passenger{name='Bill', surname='Soyer'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Mike', surname='Murray'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Liza', surname='Trust'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Indy', surname='Chart'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                "]}, Booking{\n" +
-                "idBooking=123462, \n" +
-                "purchaser=Purchaser{userId=0name='Bill', surname='Smith', email='null', bookings=null}, \n" +
-                "trip=Trip{tripId='KP931', timeTrip=00:40, departure=KYIV, destination=PARIS, capacity=25}, \n" +
-                "reserveNum=124612, \n" +
-                "passengerList=[Passenger{name='Bill', surname='Soyer'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Mike', surname='Murray'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Liza', surname='Trust'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                ", Passenger{name='Indy', surname='Chart'tripId='Trip{tripId='KP475', timeTrip=11:05, departure=KYIV, destination=PARIS, capacity=10}', bookId=124523}\n" +
-                "]}]", bookingController.getBookingByNameSurname(new Passenger("Mike", "Murray")));
+                "trip=Trip{tripId='ADM187', timeTrip=21:10, departure=KYIV, destination=PARIS, capacity=100}, \n" +
+                "reserveNum=0, \n" +
+                "passengerList=[Passenger{name='Sarah', surname='Smith', tripId='ADM187', bookId=969502734}\n" +
+                "]}]", bookingController.getBookingByNameSurname(new Passenger("Bill", "Smith")).toString());
     }
 
     @Test
     public void getTripInfoById() {
-        assertEquals("TripBooking{trip=Trip{tripId='KP931', timeTrip=00:40, " +
-                        "departure=KYIV, destination=PARIS, capacity=25}, bookingList=[], freePlace=25}",
-                bookingController.getTripInfoById("KP931").toString());
+        assertEquals("TripBooking{trip=Trip{tripId='ADM927', timeTrip=20:30, departure=KYIV, destination=BUCHAREST, capacity=100}, bookingList=[], freePlace=100, date=2022-11-26T20:30}",
+                bookingController.getTripInfoById("ADM927").toString());
     }
 
     @Test
     public void getAvailableTrips() {
-        assertEquals("[Trip{tripId='KP475', timeTrip=18:50, departure=KYIV, destination=PARIS, capacity=25}, " +
-                        "Trip{tripId='KC021', timeTrip=10:40, departure=KYIV, destination=PARIS, capacity=35}, " +
-                        "Trip{tripId='KP931', timeTrip=00:40, departure=KYIV, destination=PARIS, capacity=25}]",
+        assertEquals("[Trip{tripId='ADM204', timeTrip=00:55, departure=KYIV, destination=PARIS, capacity=100}]",
                 bookingController.getAvailableTrips(Destinations.PARIS,
-                        LocalDate.of(2022, 12, 25), 10).toString());
-        assertEquals("[Trip{tripId='KC021', timeTrip=10:40, departure=KYIV, destination=PARIS, capacity=35}]",
-                bookingController.getAvailableTrips(Destinations.PARIS,
-                        LocalDate.of(2022, 12, 25), 26).toString());
+                        LocalDate.of(2022, 11, 27), 10).toString());
         assertEquals("[]",
                 bookingController.getAvailableTrips(Destinations.PARIS,
-                        LocalDate.of(2022, 8, 25), 10).toString());
+                        LocalDate.of(2022, 11, 26), 101).toString());
     }
 
     public static List<Passenger> createPassengerList() {

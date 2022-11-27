@@ -8,21 +8,18 @@ import org.stepProjectBooking.ticketsApplication.user.Passenger;
 import org.stepProjectBooking.ticketsApplication.user.Purchaser;
 import org.stepProjectBooking.ticketsApplication.user.User;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.io.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookingService /*implements BookingDao*/ {
+public class BookingService implements BookingDao {
     private final CollectionBookingDao collectionBookingDao = new CollectionBookingDao();
 
-
-    private static final String TRIP_BOOKING_LIST_FILE_NAME = "trip_book_list.xml";
-
-
     public Booking getBookingById(int id) {
+
         List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
         for (TripBooking tripBooking : tripBookingList) {
             for (Booking booking : tripBooking.getBookingList()) {
@@ -48,7 +45,7 @@ public class BookingService /*implements BookingDao*/ {
         }
         return false;
     }
-    public List<Booking> getBookingByNameSurname(User user) {
+    public List<Booking> getBookingByUser(User user) {
         List<Booking> list = new ArrayList<>();
         List<TripBooking> tripBookingList = collectionBookingDao.getTripBookingList();
 
@@ -83,7 +80,6 @@ public class BookingService /*implements BookingDao*/ {
 
     public TripBooking getTripInfoById(String tripId) {
 
-
         Trip trip = collectionBookingDao.getTripById(tripId);
         LocalDate date = LocalDate.now();
         LocalDateTime f = trip.getTimeTrip().atDate(LocalDate.now());
@@ -91,7 +87,6 @@ public class BookingService /*implements BookingDao*/ {
         if (f.isBefore(n)) {
             date = date.plusDays(1);
         }
-
 
         if (collectionBookingDao.getTripById(tripId) == null) return null;
         if (getTripBookingByTripIdData(tripId, date) == null) {
@@ -125,22 +120,10 @@ public class BookingService /*implements BookingDao*/ {
         return availableTrips;
     }
 
-    public void uploadTripBookingList(List<TripBooking> tripBookingList) {
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TRIP_BOOKING_LIST_FILE_NAME))) {
-
-            for (TripBooking tripBooking : tripBookingList) {
-                oos.writeObject(tripBooking);
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-
     public int createNewBooking(Purchaser purchaser, Trip
             trip, List<Passenger> passengerList, LocalDate
                                         date) {
-        Booking booking = new Booking(purchaser, trip, 0, passengerList);
+        Booking booking = new Booking(purchaser, trip, passengerList);
         TripBooking tripBooking = getTripBookingByTripIdData(trip.getTripId(), date);
 
         if (tripBooking == null) {
@@ -159,10 +142,12 @@ public class BookingService /*implements BookingDao*/ {
         return booking.getIdBooking();
     }
 
-    public void saveTripBookingList(List<TripBooking> tripBookingList) {
+    public void saveTripBookingList(List<TripBooking> tripBookingList){
+
         collectionBookingDao.setTripBookingListToFile(tripBookingList);
     }
     public List<TripBooking> getTripBookingList(){
+
         return collectionBookingDao.getTripBookingList();
     }
 }
