@@ -37,7 +37,6 @@ public class ConsoleMenuUser {
     BookingController bookingController = new BookingController();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM \uD83D\uDEEB HH:mm");
 
-
     public ConsoleMenuUser() {
         consoleMenuDispatcher.put("1", this :: showTrips24Hours);
         consoleMenuDispatcher.put("2", this :: showInfoTrip);
@@ -120,10 +119,9 @@ public class ConsoleMenuUser {
              do {
                  String tempString;
 
-                 if (Pattern.matches("^\\d{5,11}$", tempString = scanner.next())) {
+                 if (Pattern.matches("^\\d{0,11}$", tempString = scanner.next())) {
 
                      temp = Integer.parseInt(tempString);
-                     System.out.println(temp);
                      if (temp == 0) {
                          break OUTER;
                      } else {
@@ -387,8 +385,6 @@ public class ConsoleMenuUser {
          }
 
          }
-
-
 
 
         /*Method read name and surname, check them by regular expression and return User*/
