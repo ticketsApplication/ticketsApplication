@@ -111,9 +111,8 @@ public class ConsoleMenuUser {
              boolean isNotCorrect = true;
              do {
                  String tempString;
-                 if (Pattern.matches("^\\d{5,11}$", tempString = scanner.next())) {
+                 if (Pattern.matches("^\\d{1,11}$", tempString = scanner.next())) {
                      temp = Integer.parseInt(tempString);
-                     System.out.println(temp);
                      if (temp == 0) {
                          break OUTER;
                      } else {
