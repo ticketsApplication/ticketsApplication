@@ -3,7 +3,6 @@ package org.stepProjectBooking.ticketsApplication.trips;
 import org.stepProjectBooking.ticketsApplication.user.Passenger;
 import org.stepProjectBooking.ticketsApplication.user.Purchaser;
 
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -15,35 +14,27 @@ public class Booking implements Serializable {
 
     private Purchaser purchaser;
     private Trip trip;
-    private int reserveNum;
     private List<Passenger> passengerList;
 
-    public Booking(int idBooking, Purchaser purchaser, Trip trip, int reserveNum, List<Passenger> passengerList) {
+    public Booking(int idBooking, Purchaser purchaser, Trip trip, List<Passenger> passengerList) {
         this.idBooking = idBooking;
         this.purchaser = purchaser;
         this.trip = trip;
-        this.reserveNum = reserveNum; //за что он отвечает?
         this.passengerList = passengerList;
     }
 
-    /**
-     * метод для теста
-     */
-    public Booking(Purchaser purchaser, Trip trip, int reserveNum, List<Passenger> passengerList) {
+    public Booking(Purchaser purchaser, Trip trip, List<Passenger> passengerList) {
 
         this.idBooking = generateUniqueId();
 
         this.purchaser = purchaser;
         this.trip = trip;
-        this.reserveNum = reserveNum;
         this.passengerList = passengerList;
     }
 
 
     public Booking() {
     }
-
-    ;
 
     private int generateUniqueId() {
         UUID idOne = UUID.randomUUID();
@@ -54,10 +45,6 @@ public class Booking implements Serializable {
         return Integer.parseInt(str);
     }
 
-
-    public void setReserveNum(int reserveNum) {
-        this.reserveNum = reserveNum;
-    }
 
     public int getIdBooking() {
 
@@ -72,9 +59,6 @@ public class Booking implements Serializable {
         return trip;
     }
 
-    public int getReserveNum() {
-        return reserveNum;
-    }
 
     public List<Passenger> getPassengerList() {
         return passengerList;
@@ -86,7 +70,6 @@ public class Booking implements Serializable {
                 "\nidBooking=" + idBooking +
                 ", \npurchaser=" + purchaser +
                 ", \ntrip=" + trip +
-                ", \nreserveNum=" + reserveNum +
                 ", \npassengerList=" + passengerList +
                 '}';
     }

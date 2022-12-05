@@ -6,16 +6,22 @@ import org.stepProjectBooking.ticketsApplication.trips.TripBooking;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CollectionBookingDao {
 
-    private List<TripBooking> tripBookingList=new ArrayList<>();
+    private static final String TRIP_BOOKING_LIST_FILE_NAME = "trip_book_list.dat";
+
+
+    private List<TripBooking> tripBookingList = new ArrayList<>();
 
     public CollectionBookingDao() {
-        List<TripBooking> tempTripBookingList = getTripBookingListFromFile();
+        List<TripBooking> baseTripBookingList = getTripBookingListFromFile();
         List<TripBooking> tripBookingList = new ArrayList<>();
         List<Trip> tripList = getTripList();
         LocalDate date = LocalDate.now();
@@ -29,18 +35,25 @@ public class CollectionBookingDao {
                             trip.getTimeTrip().getMinute()).atDate(date)));
             date = LocalDate.now();
         }
-        for (TripBooking tripBooking : tempTripBookingList){
-            if(tripBooking.getBookingList().size()>0){
-                for(TripBooking tripBooking1:tripBookingList){
-                    if(tripBooking1.getTrip().equals(tripBooking.getTrip())){
-                        tripBookingList.remove(tripBooking1);
+        for (TripBooking tripBooking : baseTripBookingList) {
+            if (tripBooking.getBookingList().size() > 0 &&
+                    tripBooking.getDate().isAfter(LocalDateTime.now())) {
+                for (TripBooking newTripBooking : tripBookingList) {
+                    if (newTripBooking.getTrip().equals(tripBooking.getTrip()) &&
+                            newTripBooking.getDate().equals(tripBooking.getDate())) {
+                        tripBookingList.remove(newTripBooking);
+                        tripBookingList.add(tripBooking);
+                        break;
+                    }
+                    if (newTripBooking.getTrip().equals(tripBooking.getTrip()) &&
+                            newTripBooking.getDate().isAfter(tripBooking.getDate())) {
                         tripBookingList.add(tripBooking);
                         break;
                     }
                 }
             }
         }
-        this.tripBookingList.addAll(tripBookingList);
+        this.tripBookingList.addAll(sortByDate(tripBookingList));
     }
 
     public List<TripBooking> getTripBookingList() {
@@ -61,7 +74,13 @@ public class CollectionBookingDao {
 
     TripController tripController = new TripController();
 
-    private static final String TRIP_BOOKING_LIST_FILE_NAME = "trip_book_list.xml";
+
+    public List<TripBooking> sortByDate(List<TripBooking> tripBookingList) {
+        return tripBookingList
+                .stream()
+                .sorted(Comparator.comparing(TripBooking::getDate))
+                .collect(Collectors.toList());
+    }
 
     public List<TripBooking> getTripBookingListFromFile() {
         List<TripBooking> tripBookingList = new ArrayList<>();
@@ -88,9 +107,20 @@ public class CollectionBookingDao {
     }
 
     public void setTripBookingListToFile(List<TripBooking> tripBookingList) {
+        List<TripBooking> tempTripBookingList = new ArrayList<>();
+        List<TripBooking> baseTripBookingList = sortByDate(getTripBookingListFromFile());
+
+        tripBookingList = sortByDate(tripBookingList);
+        for (TripBooking baseTripBooking : baseTripBookingList) {
+            if(baseTripBooking.getDate().isBefore(tripBookingList.get(0).getDate())){ //recording non-actual BookLists
+                tempTripBookingList.add(baseTripBooking);
+                break;
+            }
+        }
+        tempTripBookingList.addAll(tripBookingList); //recording actual BookLists
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TRIP_BOOKING_LIST_FILE_NAME))) {
 
-            for (TripBooking tripBooking : tripBookingList) {
+            for (TripBooking tripBooking : tempTripBookingList) {
                 oos.writeObject(tripBooking);
             }
         } catch (IOException e) {
@@ -100,7 +130,6 @@ public class CollectionBookingDao {
 
     public List<Trip> getTripList() {
         return tripController.downLoadAllTrips();
-
     }
 
     public Trip getTripById(String tripId) {

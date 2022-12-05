@@ -10,15 +10,13 @@ import org.stepProjectBooking.ticketsApplication.user.Purchaser;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.stepProjectBooking.ticketsApplication.trips.TripBookingList;
 import org.stepProjectBooking.ticketsApplication.user.User;
 
-import java.io.IOException;
-
 public class BookingController {
-    public List<TripBooking> getTripBookingList(){
+    public List<TripBooking> getTripBookingList() {
         return bookingService.getTripBookingList();
     }
+
     private final BookingService bookingService = new BookingService();
 
     public Booking getBookingById(int id) {
@@ -30,8 +28,7 @@ public class BookingController {
     }
 
     public List<Booking> getBookingByNameSurname(User user) {
-        User User;
-        return bookingService.getBookingByNameSurname(user);
+        return bookingService.getBookingByUser(user);
     }
 
     public TripBooking getTripInfoById(String tripId) {
@@ -49,13 +46,4 @@ public class BookingController {
     public void saveTripBookingList(List<TripBooking> tripBookingList) {
         bookingService.saveTripBookingList(tripBookingList);
     }
-
-//    public TripBookingList downLoadAllTrips () {
-//        return  bookingService.downLoadAllTrips();
-//    }
-
-    public void uploadTripBookingList(List<TripBooking> tripBookingList) throws IOException {
-        bookingService.uploadTripBookingList(tripBookingList);
-    }
-
 }
